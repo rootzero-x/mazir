@@ -1,0 +1,7 @@
+﻿src/components/rooms/MessageBubble.tsx(82,38): error TS2367: This comparison appears to be unintentional because the types '"sending" | "sent" | "failed" | undefined' and '"read"' have no overlap.
+src/components/rooms/RoomChat.tsx(2,64): error TS6133: 'Check' is declared but its value is never read.
+src/components/rooms/RoomChat.tsx(2,71): error TS6133: 'CheckCheck' is declared but its value is never read.
+src/components/rooms/RoomChat.tsx(2,83): error TS6133: 'AlertCircle' is declared but its value is never read.
+src/pages/onboarding/Rooms.tsx(78,19): error TS6133: 'data' is declared but its value is never read.
+src/pages/rooms/components/MessageBubble.tsx(4,1): error TS6133: 'useState' is declared but its value is never read.
+src/pages/rooms/components/RoomInfoDrawer.tsx(1,31): error TS6133: 'Calendar' is declared but its value is never read.

@@ -1,0 +1,11 @@
+﻿src/pages/onboarding/Rooms.tsx(78,19): error TS6133: 'data' is declared but its value is never read.
+src/pages/rooms/components/MessageBubble.tsx(4,1): error TS6133: 'useState' is declared but its value is never read.
+src/pages/rooms/components/MessageBubble.tsx(14,38): error TS2551: Property 'createdAt' does not exist on type 'Message'. Did you mean 'created_at'?
+src/pages/rooms/components/MessageBubble.tsx(14,75): error TS2551: Property 'createdAt' does not exist on type 'Message'. Did you mean 'created_at'?
+src/pages/rooms/components/MessageBubble.tsx(30,25): error TS18048: 'message.sender' is possibly 'undefined'.
+src/pages/rooms/components/MessageBubble.tsx(32,38): error TS18048: 'message.sender' is possibly 'undefined'.
+src/pages/rooms/components/MessageBubble.tsx(33,38): error TS18048: 'message.sender' is possibly 'undefined'.
+src/pages/rooms/components/MessageBubble.tsx(38,35): error TS18048: 'message.sender' is possibly 'undefined'.
+src/pages/rooms/components/MessageBubble.tsx(50,45): error TS2345: Argument of type 'User | undefined' is not assignable to parameter of type 'User'.
+  Type 'undefined' is not assignable to type 'User'.
+src/pages/rooms/components/RoomInfoDrawer.tsx(1,31): error TS6133: 'Calendar' is declared but its value is never read.
