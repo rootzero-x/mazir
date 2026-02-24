@@ -61,7 +61,6 @@ export default function CreatePost() {
         }
     };
 
-    const selectedType = POST_TYPES.find(t => t.id === type);
 
     return (
         <div className="h-full w-full overflow-y-auto bg-slate-950 pb-20 md:pb-0">
@@ -88,8 +87,8 @@ export default function CreatePost() {
                             key={t.id}
                             onClick={() => setType(t.id)}
                             className={`group relative p-4 rounded-2xl border text-left transition-all duration-300 ${type === t.id
-                                    ? `bg-gradient-to-br ${t.color} border-transparent ring-1 ring-white/10 shadow-lg shadow-black/20`
-                                    : "bg-slate-900/40 border-slate-800 text-slate-400 hover:bg-slate-900/60 hover:border-slate-700"
+                                ? `bg-gradient-to-br ${t.color} border-transparent ring-1 ring-white/10 shadow-lg shadow-black/20`
+                                : "bg-slate-900/40 border-slate-800 text-slate-400 hover:bg-slate-900/60 hover:border-slate-700"
                                 }`}
                         >
                             <div className="flex flex-col gap-1">

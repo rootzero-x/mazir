@@ -8,11 +8,9 @@ import { cn } from "@/lib/utils"
 const Select = ({ value, onValueChange, children }: any) => {
     return (
         <Listbox value={value} onChange={onValueChange}>
-            {({ open }) => (
-                <div className="relative mt-1">
-                    {children}
-                </div>
-            )}
+            <div className="relative mt-1">
+                {children}
+            </div>
         </Listbox>
     )
 }

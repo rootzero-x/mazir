@@ -6,7 +6,6 @@ import { User as UserIcon, Camera, RefreshCw } from "lucide-react";
 import type { User } from "@/lib/types";
 import api from "@/lib/api";
 import { toast } from "react-hot-toast";
-import type { UploadProgress } from "@/lib/imageUpload";
 import { pickAndUploadImage } from "@/lib/imageUpload";
 import { getFullImageUrl } from "@/lib/normalization";
 
@@ -62,7 +61,7 @@ export default function ProfileSettings({ user, onUpdate }: ProfileSettingsProps
     const handleAvatarUpload = async () => {
         try {
             setUploadingAvatar(true);
-            const url = await pickAndUploadImage('avatar', (progress) => {
+            await pickAndUploadImage('avatar', (progress) => {
                 console.log("Avatar upload:", progress.percentage);
             });
 
@@ -83,7 +82,7 @@ export default function ProfileSettings({ user, onUpdate }: ProfileSettingsProps
     const handleCoverUpload = async () => {
         try {
             setUploadingCover(true);
-            const url = await pickAndUploadImage('cover', (progress) => {
+            await pickAndUploadImage('cover', (progress) => {
                 console.log("Cover upload:", progress.percentage);
             });
             toast.success("Cover updated!");
@@ -115,7 +114,7 @@ export default function ProfileSettings({ user, onUpdate }: ProfileSettingsProps
                         <div className="relative group">
                             <div className="h-20 w-20 rounded-full overflow-hidden border-2 border-slate-700 bg-slate-800">
                                 {user.avatarUrl ? (
-                                    <img src={getFullImageUrl(user.avatarUrl || undefined)} alt={user.username} className="h-full w-full object-cover" />
+                                    <img src={getFullImageUrl(user.avatarUrl)} alt={user.username} className="h-full w-full object-cover" />
                                 ) : (
                                     <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-blue-600 to-purple-600 text-white font-bold text-2xl">
                                         {user.username.charAt(0).toUpperCase()}
@@ -142,7 +141,7 @@ export default function ProfileSettings({ user, onUpdate }: ProfileSettingsProps
                     <div className="flex-1 w-full relative group">
                         <div className="h-32 w-full rounded-lg overflow-hidden border border-slate-700 bg-slate-800 relative">
                             {user.coverUrl ? (
-                                <img src={getFullImageUrl(user.coverUrl || undefined)} alt="Cover" className="h-full w-full object-cover" />
+                                <img src={getFullImageUrl(user.coverUrl)} alt="Cover" className="h-full w-full object-cover" />
                             ) : (
                                 <div className="h-full w-full bg-slate-800/50 flex items-center justify-center text-slate-500 text-xs">
                                     No cover image

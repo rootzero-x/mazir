@@ -5,8 +5,8 @@ import type { User, Post, Project, ProjectType } from "./types";
  * Backend returns: /mazir/uploads/... or /uploads/...
  * We need: https://694fc8f1e1918.myxvest1.ru/mazir/uploads/...
  */
-export function getFullImageUrl(url: string | null | undefined): string | null {
-    if (!url) return null;
+export function getFullImageUrl(url: string | null | undefined): string | undefined {
+    if (!url) return undefined;
 
     // Already absolute URL
     if (url.startsWith('http://') || url.startsWith('https://')) {
@@ -35,16 +35,16 @@ export function getFullImageUrl(url: string | null | undefined): string | null {
 export function getSafeUser(entity: any): {
     username: string;
     displayName: string;
-    avatarUrl: string | null;
-    coverUrl: string | null;
+    avatarUrl: string | undefined;
+    coverUrl: string | undefined;
     id: string;
 } {
     if (!entity) {
         return {
             username: "User",
             displayName: "User",
-            avatarUrl: null,
-            coverUrl: null,
+            avatarUrl: undefined,
+            coverUrl: undefined,
             id: ""
         };
     }

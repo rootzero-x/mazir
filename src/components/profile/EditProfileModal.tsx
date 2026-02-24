@@ -38,7 +38,7 @@ export default function EditProfileModal({
 
             console.log('[EditProfile] Submitting:', payload);
 
-            const { data } = await api.patch('/users/me', payload);
+            await api.patch('/users/me', payload);
 
             toast.success('Profile updated successfully!');
 
