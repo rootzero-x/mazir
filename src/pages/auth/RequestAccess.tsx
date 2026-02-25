@@ -38,8 +38,11 @@ export default function RequestAccess() {
             const res = await api.post("/auth/verify-request-code", { email, code: verificationCode });
             const data = res.data;
 
-            if (data?.invite_code) {
-                setGeneratedInviteCode(data.invite_code);
+            // Handle both { invite_code: "..." } and { data: { invite_code: "..." } }
+            const inviteCode = data?.invite_code || data?.data?.invite_code;
+
+            if (inviteCode) {
+                setGeneratedInviteCode(inviteCode);
                 setStep(3);
                 toast.success("Identity verified! Here is your invite code.");
             } else {
@@ -148,7 +151,7 @@ export default function RequestAccess() {
                     </div>
 
                     <Button
-                        onClick={() => navigate("/auth/register")}
+                        onClick={() => navigate("/auth/register", { state: { code: generatedInviteCode } })}
                         className="w-full h-12 bg-blue-600 hover:bg-blue-500 font-bold group"
                     >
                         Continue to Register

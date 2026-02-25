@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,7 @@ import { Loader2, ArrowRight, ShieldCheck } from "lucide-react";
 export default function Register() {
     const { register } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
     const [step, setStep] = useState<1 | 2>(1);
     const [loading, setLoading] = useState(false);
     const [verifyingInvite, setVerifyingInvite] = useState(false);
@@ -22,6 +23,15 @@ export default function Register() {
         password: "",
         confirmPassword: "",
     });
+
+    // Auto-fill invite code if passed from RequestAccess
+    useEffect(() => {
+        const state = location.state as { code?: string };
+        if (state?.code) {
+            setInviteCode(state.code);
+            toast.success("Invite code auto-filled!", { icon: "✨" });
+        }
+    }, [location.state]);
 
     const handleInviteSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -38,15 +48,22 @@ export default function Register() {
             const res = await api.post("/auth/verify-invite", { code });
             const data = res.data;
 
-            if (data?.status === "success" || data?.data?.valid) {
+            // EXTREMELY ROBUST CHECK: status="success" OR data.success=true OR data.valid=true
+            const isSuccess = data?.status === "success" ||
+                data?.success === true ||
+                data?.data?.success === true ||
+                data?.data?.valid === true;
+
+            if (isSuccess) {
                 toast.success("Access Granted! Welcome to Mazir.");
                 setStep(2);
             } else {
-                toast.error(data?.message || "Invalid or expired invite code");
+                toast.error(data?.message || data?.data?.message || "Invalid or expired invite code");
             }
         } catch (error: any) {
             console.error("Invite verification failed:", error);
-            toast.error(error.response?.data?.message || "Invalid invite code. Please try again.");
+            const errMsg = error.response?.data?.message || error.response?.data?.data?.message || "Invalid invite code. Please try again.";
+            toast.error(errMsg);
         } finally {
             setVerifyingInvite(false);
         }
