@@ -17,7 +17,7 @@ export default function BottomNav() {
     ];
 
     return (
-        <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-800 bg-slate-950/80 backdrop-blur-xl lg:hidden h-16 safe-bottom">
+        <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-800 bg-slate-950/80 backdrop-blur-xl lg:hidden h-[calc(4rem+env(safe-area-inset-bottom,0px))] pb-[env(safe-area-inset-bottom,0px)]">
             <div className="flex items-center justify-between px-4 h-full max-w-lg mx-auto">
                 {/* Left side items */}
                 {navItems.slice(0, 2).map((item) => (

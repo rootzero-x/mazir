@@ -106,7 +106,7 @@ export default function Feed() {
     return (
         <div className="h-full overflow-y-auto pb-20 md:pb-0">
             <div className="max-w-3xl mx-auto space-y-6 p-4">
-                <div className="flex items-center justify-between sticky top-0 z-30 bg-slate-950/80 backdrop-blur-md py-4 -my-4 px-4 -mx-4 border-b border-slate-800/50">
+                <div className="flex items-center justify-between sticky top-0 z-30 bg-slate-950/80 backdrop-blur-md pt-[calc(env(safe-area-inset-top,0px)+1rem)] pb-4 px-4 -mx-4 border-b border-slate-800/50">
                     <h1 className="text-2xl font-bold tracking-tight text-white">Your Feed</h1>
                     <div className="flex items-center gap-2">
                         <Button

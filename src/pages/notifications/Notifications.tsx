@@ -396,7 +396,7 @@ export default function Notifications() {
             {/* Background Decoration */}
             <div className="fixed top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-900/10 via-slate-900/5 to-transparent pointer-events-none" />
 
-            <div className="relative pt-6 pb-24 md:pt-10 px-4 md:px-8 lg:px-12 max-w-4xl mx-auto">
+            <div className="relative pt-[calc(env(safe-area-inset-top,0px)+1.5rem)] pb-24 md:pt-10 px-4 md:px-8 lg:px-12 max-w-4xl mx-auto">
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                     <div>

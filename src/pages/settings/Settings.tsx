@@ -53,7 +53,7 @@ export default function Settings() {
 
     return (
         <div className="h-full overflow-y-auto bg-slate-950 pb-20 md:pb-0 scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent">
-            <div className="max-w-4xl mx-auto space-y-8 p-4 md:p-8">
+            <div className="max-w-4xl mx-auto space-y-8 p-4 pt-[calc(env(safe-area-inset-top,0px)+1rem)] md:p-8">
                 <div className="flex items-center justify-between">
                     <div>
                         <h1 className="text-3xl font-bold tracking-tight text-white">Settings</h1>
