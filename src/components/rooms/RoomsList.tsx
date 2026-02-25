@@ -33,7 +33,7 @@ export default function RoomsList({ rooms, loading, currentSlug, onRoomSelect }:
     return (
         <div className="flex h-full flex-col bg-slate-950/50 border-r border-slate-800/50">
             {/* Header / Search */}
-            <div className="sticky top-0 z-30 bg-slate-950/80 backdrop-blur-md p-4 pt-[calc(env(safe-area-inset-top,0px)+1rem)] border-b border-slate-800/50 space-y-4">
+            <div className="sticky top-0 z-30 bg-slate-950/80 backdrop-blur-md p-4 pt-[calc(env(safe-area-inset-top,0px)+1.5rem)] border-b border-slate-800/50 space-y-4">
                 <h2 className="text-lg font-bold text-white px-2">Communities</h2>
                 <div className="relative">
                     <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />

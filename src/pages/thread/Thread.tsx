@@ -225,7 +225,8 @@ export default function Thread() {
     return (
         <div className="h-[calc(100vh-4rem)] flex flex-col">
             {/* Header */}
-            <div className="flex-shrink-0 px-4 md:px-6 py-4 border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-md sticky top-0 z-30 pt-[calc(env(safe-area-inset-top,0px)+1rem)]">
+            {/* Header */}
+            <div className="flex-shrink-0 px-4 md:px-6 py-4 border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-md sticky top-0 z-30 pt-[calc(env(safe-area-inset-top,0px)+1.5rem)]">
                 <div className="max-w-4xl mx-auto flex items-center justify-between">
                     <button
                         onClick={() => navigate("/feed")}
