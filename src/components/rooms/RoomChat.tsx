@@ -168,7 +168,7 @@ export default function RoomChat({ room, onToggleInfo }: RoomChatProps) {
     return (
         <div className="flex flex-col bg-slate-950 h-[100dvh] md:h-full">
             {/* Header */}
-            <div className="flex z-10 h-16 shrink-0 items-center justify-between border-b border-slate-800/50 bg-slate-900/50 px-4 backdrop-blur-md sticky top-0">
+            <div className="flex z-20 h-[calc(4rem+env(safe-area-inset-top,0px))] shrink-0 items-end pb-4 border-b border-slate-800/50 bg-slate-950/80 px-4 backdrop-blur-md sticky top-0">
                 <div className="flex items-center gap-3">
                     <Link
                         to="/rooms"

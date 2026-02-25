@@ -113,7 +113,7 @@ export default function Projects() {
                 </div>
 
                 {/* Toolbar */}
-                <div className="flex flex-col lg:flex-row gap-4 justify-between items-start lg:items-center bg-slate-900/80 backdrop-blur-xl p-4 rounded-2xl border border-slate-800/60 sticky top-1 z-30 shadow-xl shadow-black/20 transition-all duration-300">
+                <div className="flex flex-col lg:flex-row gap-4 justify-between items-start lg:items-center bg-slate-900/80 backdrop-blur-xl p-4 rounded-2xl border border-slate-800/60 sticky top-[calc(env(safe-area-inset-top,0px)+1rem)] z-30 shadow-xl shadow-black/20 transition-all duration-300">
                     <div className="flex flex-wrap gap-2 w-full lg:w-auto">
                         {(["ALL", "COLLAB", "SELL", "OPEN_SOURCE"] as const).map((tab) => (
                             <button

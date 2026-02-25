@@ -396,34 +396,36 @@ export default function Notifications() {
             {/* Background Decoration */}
             <div className="fixed top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-900/10 via-slate-900/5 to-transparent pointer-events-none" />
 
-            <div className="relative pt-[calc(env(safe-area-inset-top,0px)+1.5rem)] pb-24 md:pt-10 px-4 md:px-8 lg:px-12 max-w-4xl mx-auto">
+            <div className="relative pb-24 md:pt-10 max-w-4xl mx-auto">
                 {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-                    <div>
-                        <h1 className="text-3xl font-bold text-white tracking-tight flex items-center gap-3">
-                            Notifications
-                            {unreadCount > 0 && (
-                                <span className="inline-flex items-center justify-center h-6 min-w-[1.5rem] px-2 text-xs font-bold text-white bg-red-500 rounded-full animate-bounce shadow-lg shadow-red-500/30">
-                                    {unreadCount}
-                                </span>
-                            )}
-                        </h1>
-                        <p className="text-slate-400 mt-1">Stay updated with your community interactions</p>
-                    </div>
+                <div className="sticky top-0 z-30 bg-slate-950/80 backdrop-blur-md pt-[calc(env(safe-area-inset-top,0px)+1.5rem)] pb-4 px-4 -mx-4 mb-8">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h1 className="text-3xl font-bold text-white tracking-tight flex items-center gap-3">
+                                Notifications
+                                {unreadCount > 0 && (
+                                    <span className="inline-flex items-center justify-center h-6 min-w-[1.5rem] px-2 text-xs font-bold text-white bg-red-500 rounded-full animate-bounce shadow-lg shadow-red-500/30">
+                                        {unreadCount}
+                                    </span>
+                                )}
+                            </h1>
+                            <p className="text-slate-400 mt-1">Stay updated with your community interactions</p>
+                        </div>
 
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={markAllAsRead}
-                        disabled={unreadCount === 0}
-                        className={cn(
-                            "group border-slate-700 bg-slate-900/50 backdrop-blur text-slate-300 hover:text-white hover:border-blue-500/50 hover:bg-blue-500/10 transition-all",
-                            unreadCount === 0 && "opacity-50 cursor-not-allowed"
-                        )}
-                    >
-                        <CheckCheck className="h-4 w-4 mr-2 group-hover:text-blue-400 transition-colors" />
-                        Mark all as read
-                    </Button>
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={markAllAsRead}
+                            disabled={unreadCount === 0}
+                            className={cn(
+                                "group border-slate-700 bg-slate-900/50 backdrop-blur text-slate-300 hover:text-white hover:border-blue-500/50 hover:bg-blue-500/10 transition-all",
+                                unreadCount === 0 && "opacity-50 cursor-not-allowed"
+                            )}
+                        >
+                            <CheckCheck className="h-4 w-4 mr-2 group-hover:text-blue-400 transition-colors" />
+                            Mark all as read
+                        </Button>
+                    </div>
                 </div>
 
                 {/* Notifications List */}

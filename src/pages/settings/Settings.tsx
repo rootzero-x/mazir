@@ -53,20 +53,22 @@ export default function Settings() {
 
     return (
         <div className="h-full overflow-y-auto bg-slate-950 pb-20 md:pb-0 scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent">
-            <div className="max-w-4xl mx-auto space-y-8 p-4 pt-[calc(env(safe-area-inset-top,0px)+1rem)] md:p-8">
-                <div className="flex items-center justify-between">
-                    <div>
-                        <h1 className="text-3xl font-bold tracking-tight text-white">Settings</h1>
-                        <p className="text-slate-400 mt-1">Manage your account, profile, and preferences.</p>
+            <div className="max-w-4xl mx-auto space-y-8 pb-8 md:p-8">
+                <div className="sticky top-0 z-30 bg-slate-950/80 backdrop-blur-md pt-[calc(env(safe-area-inset-top,0px)+1.5rem)] pb-4 px-4-mx-4 mb-8">
+                    <div className="flex items-center justify-between px-4">
+                        <div>
+                            <h1 className="text-3xl font-bold tracking-tight text-white">Settings</h1>
+                            <p className="text-slate-400 mt-1">Manage your account, profile, and preferences.</p>
+                        </div>
+                        <Button
+                            variant="ghost"
+                            className="text-red-400 hover:text-red-300 hover:bg-red-500/10 gap-2"
+                            onClick={logout}
+                        >
+                            <LogOut className="h-4 w-4" />
+                            Log out
+                        </Button>
                     </div>
-                    <Button
-                        variant="ghost"
-                        className="text-red-400 hover:text-red-300 hover:bg-red-500/10 gap-2"
-                        onClick={logout}
-                    >
-                        <LogOut className="h-4 w-4" />
-                        Log out
-                    </Button>
                 </div>
 
                 <div className="space-y-8">
