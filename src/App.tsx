@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Welcome from "./pages/auth/Welcome";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import RequestAccess from "./pages/auth/RequestAccess";
 import VerifyEmail from "./pages/auth/VerifyEmail";
 import VerifyDevice from "./pages/auth/VerifyDevice";
 import ForgotPassword from "./pages/auth/ForgotPassword";
@@ -34,6 +35,7 @@ function App() {
         <Route path="/auth/welcome" element={<Welcome />} />
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/register" element={<Register />} />
+        <Route path="/auth/request-access" element={<RequestAccess />} />
         <Route path="/auth/verify-email" element={<VerifyEmail />} />
         <Route path="/auth/verify-device" element={<VerifyDevice />} />
         <Route path="/auth/forgot-password" element={<ForgotPassword />} />
