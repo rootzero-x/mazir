@@ -111,17 +111,17 @@ export default function PublicProfile() {
 
     if (loading) {
         return (
-            <div className="h-full overflow-y-auto pb-20 md:pb-0 bg-slate-950">
-                <div className="max-w-4xl mx-auto space-y-6">
-                    {/* Cover skeleton */}
-                    <div className="h-64 bg-slate-900 animate-pulse rounded-b-2xl" />
-                    {/* Profile info skeleton */}
-                    <div className="px-4 space-y-4 -mt-16">
-                        <div className="h-32 w-32 rounded-2xl bg-slate-900 animate-pulse border-4 border-slate-950" />
-                        <div className="space-y-2">
-                            <div className="h-8 w-48 bg-slate-900 rounded animate-pulse" />
-                            <div className="h-4 w-32 bg-slate-900 rounded animate-pulse" />
-                            <div className="h-4 w-64 bg-slate-900 rounded animate-pulse" />
+            <div className="h-full overflow-y-auto pb-20 md:pb-0 relative bg-transparent">
+                {/* Ambient Glow */}
+                <div className="fixed top-0 left-0 w-[500px] h-[500px] rounded-full bg-violet-600/5 blur-[120px] pointer-events-none z-0" />
+                <div className="max-w-4xl mx-auto space-y-6 relative z-10">
+                    <div className="h-64 bg-slate-900/40 backdrop-blur-md animate-pulse border-b border-white/5" />
+                    <div className="px-4 md:px-8 space-y-4 -mt-16">
+                        <div className="h-32 w-32 rounded-2xl bg-slate-800 animate-pulse border border-white/5 shadow-xl" />
+                        <div className="space-y-3">
+                            <div className="h-8 w-48 bg-slate-800/50 rounded animate-pulse" />
+                            <div className="h-4 w-32 bg-slate-800/50 rounded animate-pulse" />
+                            <div className="h-4 w-64 bg-slate-800/50 rounded animate-pulse" />
                         </div>
                     </div>
                 </div>
@@ -131,20 +131,22 @@ export default function PublicProfile() {
 
     if (error || !profileUser) {
         return (
-            <div className="h-full flex items-center justify-center p-4 bg-slate-950">
-                <div className="text-center max-w-md">
-                    <div className="mb-6">
-                        <div className="h-20 w-20 rounded-full bg-slate-900 flex items-center justify-center mx-auto mb-4 border border-slate-800">
-                            <UserIcon className="h-10 w-10 text-slate-500" />
+            <div className="h-full flex items-center justify-center p-4 relative bg-transparent">
+                <div className="fixed inset-0 bg-slate-950 pointer-events-none -z-10" />
+                <div className="text-center max-w-md bg-slate-900/40 backdrop-blur-xl border border-white/5 p-10 rounded-[2rem] shadow-2xl relative">
+                    <div className="mb-4">
+                        <div className="absolute -inset-1 bg-red-500/20 rounded-[2rem] blur-xl" />
+                        <div className="h-16 w-16 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-4 border border-red-500/20 relative">
+                            <UserIcon className="h-8 w-8 text-red-500 drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
                         </div>
-                        <h2 className="text-2xl font-bold text-white mb-2">{error || "User not found"}</h2>
-                        <p className="text-slate-400">
+                        <h2 className="text-2xl font-bold text-white mb-2 relative">{error || "User not found"}</h2>
+                        <p className="text-slate-400 font-light mb-6 relative">
                             The profile you are looking for does not exist or has been removed.
                         </p>
                     </div>
                     <Button
                         onClick={() => navigate('/feed')}
-                        variant="secondary"
+                        className="bg-slate-800 hover:bg-slate-700 text-white shadow-sm border border-white/10 rounded-xl px-8 relative z-10"
                     >
                         Return to Feed
                     </Button>
@@ -156,61 +158,68 @@ export default function PublicProfile() {
     const safeUser = getSafeUser(profileUser);
 
     return (
-        <div className="h-full overflow-y-auto pb-20 md:pb-0 bg-slate-950">
-            <div className="max-w-4xl mx-auto">
+        <div className="h-full overflow-y-auto pb-20 md:pb-0 relative bg-transparent">
+            {/* Ambient Glows */}
+            <div className="fixed top-0 left-0 w-[500px] h-[500px] rounded-full bg-violet-600/5 blur-[120px] pointer-events-none z-0" />
+            <div className="fixed bottom-0 right-0 w-[600px] h-[600px] rounded-full bg-sky-500/5 blur-[150px] pointer-events-none z-0" />
+
+            <div className="max-w-4xl mx-auto relative z-10">
                 {/* Cover Image */}
-                <div className="relative h-64 bg-gradient-to-br from-slate-800 to-slate-900">
+                <div className="relative h-64 bg-slate-900 group">
                     {safeUser.coverUrl && (
                         <img
                             src={safeUser.coverUrl}
                             alt="Cover"
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover mix-blend-screen opacity-60 pointer-events-none"
                         />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent pointer-events-none" />
                 </div>
 
                 {/* Profile Content */}
                 <div className="px-4 md:px-8 pb-10 relative">
                     {/* Header Section */}
-                    <div className="flex flex-col md:flex-row items-start md:items-end gap-6 -mt-16 mb-8">
+                    <div className="flex flex-col md:flex-row items-start md:items-end gap-6 -mt-16 mb-8 relative z-20">
                         {/* Avatar */}
-                        <div className="h-32 w-32 shrink-0 rounded-2xl bg-slate-900 p-1 ring-4 ring-slate-950 shadow-2xl">
-                            {safeUser.avatarUrl ? (
-                                <img
-                                    src={safeUser.avatarUrl}
-                                    alt={safeUser.username}
-                                    className="h-full w-full object-cover rounded-xl"
-                                />
-                            ) : (
-                                <div className="h-full w-full bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center text-4xl font-bold text-white">
-                                    {safeUser.username[0]?.toUpperCase()}
-                                </div>
-                            )}
+                        <div className="relative group">
+                            <div className="absolute -inset-1 bg-gradient-to-br from-violet-600/30 to-sky-500/30 rounded-[1.2rem] blur-xl opacity-100" />
+                            <div className="h-32 w-32 shrink-0 rounded-[1.2rem] bg-slate-900 flex items-center justify-center text-4xl font-bold text-white overflow-hidden border border-white/10 ring-4 ring-slate-950 relative shadow-2xl">
+                                {safeUser.avatarUrl ? (
+                                    <img
+                                        src={safeUser.avatarUrl}
+                                        alt={safeUser.username}
+                                        className="h-full w-full object-cover"
+                                    />
+                                ) : (
+                                    <span className="bg-gradient-to-br from-violet-400 to-sky-400 bg-clip-text text-transparent">
+                                        {safeUser.username[0]?.toUpperCase()}
+                                    </span>
+                                )}
+                            </div>
                         </div>
 
                         {/* Name & Stats */}
-                        <div className="flex-1 pb-2">
+                        <div className="flex-1 pb-2 relative z-10">
                             <div className="flex items-center gap-3 mb-1">
-                                <h1 className="text-3xl font-bold text-white tracking-tight">
+                                <h1 className="text-3xl font-bold tracking-tight text-white drop-shadow-sm">
                                     {safeUser.displayName}
                                 </h1>
                                 {(profileUser.level !== undefined && profileUser.level !== null) && (
                                     <LevelBadge level={profileUser.level} />
                                 )}
                             </div>
-                            <p className="text-slate-400 font-medium">@{safeUser.username}</p>
+                            <p className="text-[15px] font-mono text-violet-400/80">@{safeUser.username}</p>
                         </div>
                     </div>
 
                     {/* Bio & Details Grid */}
-                    <div className="grid md:grid-cols-3 gap-8 mb-10">
+                    <div className="grid md:grid-cols-3 gap-8 mb-10 relative z-10">
                         {/* Left: Bio & Info */}
                         <div className="md:col-span-2 space-y-6">
                             {/* Bio */}
                             {profileUser.bio && (
-                                <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-800/50">
-                                    <p className="text-slate-300 leading-relaxed text-lg">
+                                <div className="bg-slate-900/40 backdrop-blur-xl rounded-[2rem] p-8 border border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
+                                    <p className="text-[15px] font-light text-slate-300 leading-relaxed drop-shadow-sm">
                                         {profileUser.bio}
                                     </p>
                                 </div>
@@ -218,11 +227,11 @@ export default function PublicProfile() {
 
                             {/* Skills */}
                             {profileUser.skills && profileUser.skills.length > 0 && (
-                                <div>
-                                    <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3">Skills</h3>
-                                    <div className="flex flex-wrap gap-2">
+                                <div className="bg-slate-900/40 backdrop-blur-xl rounded-[2rem] p-8 border border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
+                                    <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">Skills</h3>
+                                    <div className="flex flex-wrap gap-2.5">
                                         {profileUser.skills.map(skill => (
-                                            <span key={skill} className="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-300 text-sm border border-slate-800 font-medium">
+                                            <span key={skill} className="px-3.5 py-1.5 rounded-xl bg-slate-950/50 border border-white/5 text-slate-300 font-mono text-[13px] hover:border-violet-500/50 hover:text-white transition-all shadow-inner hover:shadow-[0_0_15px_rgba(139,92,246,0.15)] cursor-default">
                                                 {skill}
                                             </span>
                                         ))}
@@ -230,32 +239,32 @@ export default function PublicProfile() {
                                 </div>
                             )}
 
-                            {/* Posts */}
+                            {/* Posts & Projects Area */}
                             <div className="space-y-4">
                                 {/* Tab Navigation */}
-                                <div className="flex items-center gap-2 border-b border-slate-800">
+                                <div className="flex items-center gap-6 border-b border-white/5">
                                     <button
                                         onClick={() => setActiveTab('posts')}
-                                        className={`px-6 py-3 font-semibold text-sm transition-all relative ${activeTab === 'posts'
+                                        className={`pb-4 text-[15px] font-medium transition-colors relative ${activeTab === 'posts'
                                             ? 'text-white'
-                                            : 'text-slate-400 hover:text-slate-300'
+                                            : 'text-slate-500 hover:text-slate-300'
                                             }`}
                                     >
                                         Posts
                                         {activeTab === 'posts' && (
-                                            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500" />
+                                            <div className="absolute bottom-0 left-0 w-full h-[2px] bg-violet-500 rounded-t-full drop-shadow-[0_0_8px_rgba(139,92,246,0.6)]" />
                                         )}
                                     </button>
                                     <button
                                         onClick={() => setActiveTab('projects')}
-                                        className={`px-6 py-3 font-semibold text-sm transition-all relative ${activeTab === 'projects'
+                                        className={`pb-4 text-[15px] font-medium transition-colors relative ${activeTab === 'projects'
                                             ? 'text-white'
-                                            : 'text-slate-400 hover:text-slate-300'
+                                            : 'text-slate-500 hover:text-slate-300'
                                             }`}
                                     >
                                         Projects
                                         {activeTab === 'projects' && (
-                                            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500" />
+                                            <div className="absolute bottom-0 left-0 w-full h-[2px] bg-violet-500 rounded-t-full drop-shadow-[0_0_8px_rgba(139,92,246,0.6)]" />
                                         )}
                                     </button>
                                 </div>
@@ -272,20 +281,20 @@ export default function PublicProfile() {
                                                     />
                                                 ))
                                             ) : (
-                                                <div className="text-center py-12 text-slate-500 bg-slate-900/30 rounded-2xl border border-slate-800/50">
-                                                    <p>No posts yet</p>
+                                                <div className="text-center py-16 text-slate-500 bg-slate-900/40 backdrop-blur-xl rounded-[2rem] border border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
+                                                    <p className="font-light">No posts yet</p>
                                                 </div>
                                             )}
                                         </div>
                                     ) : (
-                                        <div className="grid grid-cols-1 gap-6">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             {projects && projects.length > 0 ? (
                                                 projects.map(project => (
                                                     <ProjectCard key={project.id} project={project} />
                                                 ))
                                             ) : (
-                                                <div className="text-center py-12 text-slate-500 bg-slate-900/30 rounded-2xl border border-slate-800/50">
-                                                    <p>No projects yet</p>
+                                                <div className="col-span-full text-center py-16 text-slate-500 bg-slate-900/40 backdrop-blur-xl rounded-[2rem] border border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
+                                                    <p className="font-light">No projects yet</p>
                                                 </div>
                                             )}
                                         </div>
@@ -296,15 +305,15 @@ export default function PublicProfile() {
 
                         {/* Right: Meta Details */}
                         <div className="space-y-6">
-                            <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-800/50 space-y-4">
-                                <h3 className="text-sm font-semibold text-white mb-4">About</h3>
+                            <div className="bg-slate-900/40 backdrop-blur-xl rounded-[2rem] p-8 border border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.2)] space-y-5">
+                                <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">About</h3>
 
                                 <div className="space-y-4">
                                     <div className="flex items-center gap-3 text-slate-400">
                                         <Calendar className="w-5 h-5 text-slate-500" />
                                         <div>
-                                            <p className="text-xs text-slate-500 uppercase font-semibold">Joined</p>
-                                            <p className="text-sm font-medium text-slate-300">{formatJoinDate(profileUser.createdAt || '')}</p>
+                                            <p className="text-[11px] text-slate-500 uppercase font-semibold">Joined</p>
+                                            <p className="text-[14px] font-medium text-slate-300">{formatJoinDate(profileUser.createdAt || '')}</p>
                                         </div>
                                     </div>
 
@@ -312,22 +321,22 @@ export default function PublicProfile() {
                                         <div className="flex items-center gap-3 text-slate-400">
                                             <MapPin className="w-5 h-5 text-slate-500" />
                                             <div>
-                                                <p className="text-xs text-slate-500 uppercase font-semibold">Location</p>
-                                                <p className="text-sm font-medium text-slate-300">{(profileUser as any).location}</p>
+                                                <p className="text-[11px] text-slate-500 uppercase font-semibold">Location</p>
+                                                <p className="text-[14px] font-medium text-slate-300">{(profileUser as any).location}</p>
                                             </div>
                                         </div>
                                     )}
 
                                     {(profileUser as any).website && (
                                         <div className="flex items-center gap-3 text-slate-400">
-                                            <Globe className="w-5 h-5 text-slate-500" />
+                                            <Globe className="w-5 h-5 text-violet-500" />
                                             <div className="w-full overflow-hidden">
-                                                <p className="text-xs text-slate-500 uppercase font-semibold">Website</p>
+                                                <p className="text-[11px] text-slate-500 uppercase font-semibold">Website</p>
                                                 <a
                                                     href={(profileUser as any).website}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="text-sm font-medium text-blue-400 hover:underline truncate block"
+                                                    className="text-[14px] font-medium text-blue-400 hover:text-blue-300 transition-colors truncate block"
                                                 >
                                                     {(profileUser as any).website.replace(/^https?:\/\//, '')}
                                                 </a>
@@ -339,12 +348,12 @@ export default function PublicProfile() {
 
                             {/* Goals */}
                             {profileUser.goals && profileUser.goals.length > 0 && (
-                                <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-800/50">
-                                    <h3 className="text-sm font-semibold text-white mb-4">Goals</h3>
-                                    <ul className="space-y-3">
+                                <div className="bg-slate-900/40 backdrop-blur-xl rounded-[2rem] p-8 border border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
+                                    <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-5">Goals</h3>
+                                    <ul className="space-y-3.5">
                                         {profileUser.goals.map((goal, idx) => (
-                                            <li key={idx} className="flex items-start gap-2 text-sm text-slate-400">
-                                                <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                                            <li key={idx} className="flex items-start gap-3 text-[14px] text-slate-300 font-light">
+                                                <div className="w-1.5 h-1.5 rounded-full bg-violet-500 mt-2 shrink-0 drop-shadow-[0_0_5px_rgba(139,92,246,0.8)]" />
                                                 <span className="leading-relaxed">{goal}</span>
                                             </li>
                                         ))}

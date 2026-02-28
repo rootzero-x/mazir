@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { Send, MoreVertical, Phone, Video, ArrowLeft, Loader2 } from "lucide-react";
+import { Send, MoreVertical, Phone, Video, ArrowLeft, Loader2, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-hot-toast";
@@ -21,7 +21,7 @@ export default function RoomChat({ room, onToggleInfo }: RoomChatProps) {
     const [loading, setLoading] = useState(true);
     const [sending, setSending] = useState(false);
     const [inputValue, setInputValue] = useState("");
-    const scrollRef = useRef<HTMLDivElement>(null);
+    const messagesContainerRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     // Fetch Messages
@@ -77,10 +77,10 @@ export default function RoomChat({ room, onToggleInfo }: RoomChatProps) {
         return () => clearInterval(interval);
     }, [room.slug, fetchMessages]);
 
-    // Scroll to bottom on new messages
+    // Scroll to bottom on new messages (Container specific to fix global push)
     useEffect(() => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollIntoView({ behavior: "smooth" });
+        if (messagesContainerRef.current) {
+            messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
         }
     }, [messages, loading]);
 
@@ -166,47 +166,58 @@ export default function RoomChat({ room, onToggleInfo }: RoomChatProps) {
     };
 
     return (
-        <div className="flex flex-col bg-slate-950 h-[100dvh] md:h-full">
+        <div className="flex flex-col bg-transparent h-full md:h-full relative overflow-hidden w-full min-h-0 md:min-h-0">
+            {/* Ambient inner glow for the chat pane */}
+            <div className="absolute inset-0 bg-gradient-to-br from-violet-600/5 to-sky-500/5 pointer-events-none z-0" />
+
             {/* Header */}
-            <div className="flex z-20 h-[calc(4.5rem+env(safe-area-inset-top,0px))] shrink-0 items-end pb-4 border-b border-slate-800/50 bg-slate-950/80 px-4 backdrop-blur-md sticky top-0">
-                <div className="flex items-center gap-3">
+            <div className="flex-none flex z-20 h-20 items-center border-b border-white/5 bg-[#020617]/70 px-4 sm:px-6 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] relative w-full pt-[calc(env(safe-area-inset-top,0px))]">
+                <div className="flex items-center gap-3 w-full">
                     <Link
                         to="/rooms"
-                        className="flex h-10 w-10 items-center justify-center rounded-full text-slate-400 hover:bg-slate-800 hover:text-white md:hidden"
+                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-slate-400 hover:bg-white/5 hover:text-white md:hidden transition-all"
                     >
                         <ArrowLeft className="h-5 w-5" />
                     </Link>
 
                     <button
-                        className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/20 cursor-pointer"
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-sky-500 text-white shadow-[0_0_15px_rgba(139,92,246,0.3)] ring-1 ring-white/10 cursor-pointer hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] transition-all"
                         onClick={onToggleInfo}
                     >
-                        {room?.icon ? <span className="text-xl">{room.icon}</span> : (room?.name?.[0]?.toUpperCase() || "#")}
+                        {room?.icon ? <span className="text-xl drop-shadow-md">{room.icon}</span> : <span className="text-lg font-bold">{room?.name?.[0]?.toUpperCase() || "#"}</span>}
                     </button>
 
-                    <div className="flex flex-col cursor-pointer" onClick={onToggleInfo}>
+                    <div className="flex flex-col cursor-pointer group" onClick={onToggleInfo}>
                         <div className="flex items-center gap-2">
-                            <h2 className="text-sm font-bold text-white leading-tight">
+                            <h2 className="text-[15px] font-bold text-white leading-tight tracking-tight group-hover:text-violet-200 transition-colors">
                                 {room?.name || "Room"}
                             </h2>
                         </div>
-                        <span className="text-xs text-slate-400">
-                            {room?.memberCount || 0} members
-                            {room?.onlineCount ? ` • ${room.onlineCount} online` : ""}
+                        <span className="text-[12px] font-light text-slate-400 flex items-center gap-1.5 mt-0.5">
+                            <Users className="h-3 w-3" /> {room?.memberCount || 0}
+                            {room?.onlineCount ? (
+                                <>
+                                    <span className="text-slate-600">•</span>
+                                    <span className="flex items-center gap-1 text-sky-400 font-medium bg-sky-500/10 px-1.5 rounded-full ring-1 ring-sky-500/20 shadow-[0_0_5px_rgba(56,189,248,0.2)]">
+                                        <span className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
+                                        {room.onlineCount}
+                                    </span>
+                                </>
+                            ) : ""}
                         </span>
                     </div>
                 </div>
 
-                <div className="flex items-center gap-1">
-                    <button className="hidden h-10 w-10 items-center justify-center rounded-full text-slate-400 hover:bg-slate-800 hover:text-white sm:flex">
+                <div className="flex items-center gap-1 ml-auto">
+                    <button className="hidden h-10 w-10 items-center justify-center rounded-xl text-slate-400 hover:bg-white/5 hover:text-white sm:flex transition-all">
                         <Phone className="h-5 w-5" />
                     </button>
-                    <button className="hidden h-10 w-10 items-center justify-center rounded-full text-slate-400 hover:bg-slate-800 hover:text-white sm:flex">
+                    <button className="hidden h-10 w-10 items-center justify-center rounded-xl text-slate-400 hover:bg-white/5 hover:text-white sm:flex transition-all">
                         <Video className="h-5 w-5" />
                     </button>
                     <button
                         onClick={onToggleInfo}
-                        className="flex h-10 w-10 items-center justify-center rounded-full text-slate-400 hover:bg-slate-800 hover:text-white"
+                        className="flex h-10 w-10 items-center justify-center rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all"
                     >
                         <MoreVertical className="h-5 w-5" />
                     </button>
@@ -214,20 +225,29 @@ export default function RoomChat({ room, onToggleInfo }: RoomChatProps) {
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto p-4 scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent">
+            <div
+                ref={messagesContainerRef}
+                className="flex-1 overflow-y-auto p-4 scrollbar-thin scrollbar-thumb-violet-500/20 scrollbar-track-transparent relative z-10 w-full overflow-x-hidden"
+            >
                 {loading && messages.length === 0 ? (
                     <div className="flex h-full items-center justify-center">
-                        <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+                        <div className="relative flex justify-center items-center">
+                            <div className="absolute inset-0 rounded-full blur-xl bg-violet-500/20 animate-pulse" />
+                            <Loader2 className="h-8 w-8 animate-spin text-violet-400 relative z-10" />
+                        </div>
                     </div>
                 ) : messages.length === 0 ? (
-                    <div className="flex h-full flex-col items-center justify-center space-y-4 text-center text-slate-500">
-                        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-slate-900 ring-1 ring-slate-800">
-                            <span className="text-4xl">👋</span>
+                    <div className="flex h-full flex-col items-center justify-center space-y-6 text-center">
+                        <div className="flex h-24 w-24 items-center justify-center rounded-[2rem] bg-slate-900/50 backdrop-blur-md border border-white/5 shadow-[inset_0_0_20px_rgba(139,92,246,0.1)] group hover:scale-105 transition-transform duration-500">
+                            <span className="text-5xl drop-shadow-lg filter">👋</span>
                         </div>
-                        <p>No messages yet.<br />Be the first to say hello!</p>
+                        <div className="space-y-2">
+                            <h3 className="text-xl font-bold text-white tracking-tight">No messages yet</h3>
+                            <p className="text-slate-400 font-light max-w-xs leading-relaxed">Say hello to the community and start the conversation!</p>
+                        </div>
                     </div>
                 ) : (
-                    <div className="flex flex-col gap-1 pb-4">
+                    <div className="flex flex-col gap-1.5 pb-2">
                         {messages.map((msg, index) => {
                             // 1. Strict isMine check using user_id
                             const isMine = String(msg.user_id) === String(user?.id);
@@ -247,20 +267,19 @@ export default function RoomChat({ room, onToggleInfo }: RoomChatProps) {
                                 />
                             );
                         })}
-                        <div ref={scrollRef} />
                     </div>
                 )}
             </div>
 
             {/* Composer */}
-            <div className="shrink-0 p-4 pt-2 bg-slate-950">
-                <div className="relative flex items-end gap-2 rounded-2xl bg-slate-900/50 p-2 ring-1 ring-slate-800 focus-within:ring-blue-500/50 transition-all">
+            <div className="shrink-0 p-4 pt-2 bg-transparent relative z-20">
+                <div className="relative flex items-end gap-2 rounded-2xl bg-slate-900/60 backdrop-blur-xl p-2 ring-1 ring-white/5 focus-within:ring-violet-500/50 focus-within:shadow-[0_0_15px_rgba(139,92,246,0.15)] transition-all duration-300">
                     <TextareaAutosize
                         ref={textareaRef}
                         minRows={1}
                         maxRows={5}
                         placeholder="Write a message..."
-                        className="flex-1 resize-none bg-transparent px-3 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none scrollbar-none"
+                        className="flex-1 resize-none bg-transparent px-3 py-3 text-[15px] text-white placeholder:text-slate-500 focus:outline-none scrollbar-none"
                         value={inputValue}
                         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setInputValue(e.target.value)}
                         onKeyDown={handleKeyDown}
@@ -269,10 +288,10 @@ export default function RoomChat({ room, onToggleInfo }: RoomChatProps) {
                         onClick={handleSendMessage}
                         disabled={!inputValue.trim() || sending}
                         className={cn(
-                            "mb-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all",
+                            "mb-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-all duration-300",
                             inputValue.trim()
-                                ? "bg-blue-600 text-white hover:bg-blue-500 shadow-lg shadow-blue-500/20"
-                                : "bg-slate-800 text-slate-500 cursor-not-allowed"
+                                ? "bg-violet-600 text-white hover:bg-violet-500 shadow-[0_0_15px_rgba(139,92,246,0.3)] hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] border border-violet-500/50"
+                                : "bg-slate-800/80 text-slate-500 border border-transparent cursor-not-allowed"
                         )}
                     >
                         {sending ? (

@@ -324,10 +324,10 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm" />
+                    <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-40" />
                 </Transition.Child>
 
-                <div className="fixed inset-0 overflow-y-auto">
+                <div className="fixed inset-0 overflow-y-auto z-50">
                     <div className="flex min-h-full items-center justify-center p-4">
                         <Transition.Child
                             as={Fragment}
@@ -338,15 +338,15 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-slate-900 border border-slate-800 p-6 text-left align-middle shadow-xl transition-all max-h-[90vh] overflow-y-auto">
+                            <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-[2.5rem] bg-slate-900/40 border border-white/5 p-8 text-left align-middle shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-2xl transition-all max-h-[90vh] overflow-y-auto relative ring-1 ring-white/5">
                                 {/* Header */}
-                                <div className="flex items-center justify-between mb-6">
-                                    <Dialog.Title as="h3" className="text-xl font-bold text-white">
+                                <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/5">
+                                    <Dialog.Title as="h3" className="text-2xl font-bold tracking-tight text-white drop-shadow-sm">
                                         Create Post
                                     </Dialog.Title>
                                     <button
                                         onClick={onClose}
-                                        className="rounded-full p-1 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
+                                        className="rounded-full p-2 bg-white/5 border border-white/5 text-slate-400 hover:bg-white/10 hover:text-white transition-all focus:outline-none focus:ring-2 focus:ring-violet-500/50 shadow-inner"
                                     >
                                         <X className="h-5 w-5" />
                                     </button>
@@ -363,12 +363,12 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
                                                 <button
                                                     key={type}
                                                     onClick={() => handleTypeChange(type)}
-                                                    className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${formData.type === type
-                                                        ? type === "BUG" ? "bg-red-600 text-white"
-                                                            : type === "SOLUTION" ? "bg-green-600 text-white"
-                                                                : type === "INSIGHT" ? "bg-blue-600 text-white"
-                                                                    : "bg-purple-600 text-white"
-                                                        : "bg-slate-800 text-slate-300 hover:bg-slate-700"
+                                                    className={`px-4 py-2 rounded-xl font-bold text-[13px] tracking-wide transition-all border ${formData.type === type
+                                                        ? type === "BUG" ? "bg-red-500/20 text-red-400 border-red-500/50 shadow-[0_0_15px_rgba(239,68,68,0.2)]"
+                                                            : type === "SOLUTION" ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/50 shadow-[0_0_15px_rgba(16,185,129,0.2)]"
+                                                                : type === "INSIGHT" ? "bg-blue-500/20 text-blue-400 border-blue-500/50 shadow-[0_0_15px_rgba(59,130,246,0.2)]"
+                                                                    : "bg-fuchsia-500/20 text-fuchsia-400 border-fuchsia-500/50 shadow-[0_0_15px_rgba(217,70,239,0.2)]"
+                                                        : "bg-slate-950/50 text-slate-400 border-white/5 hover:bg-white/5 hover:border-white/10"
                                                         }`}
                                                     disabled={isSubmitting}
                                                 >
@@ -387,7 +387,7 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
                                             <select
                                                 value={formData.room_id || ""}
                                                 onChange={(e) => handleInputChange("room_id" as any, e.target.value)}
-                                                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                className="w-full bg-slate-950/50 border border-white/5 rounded-xl p-3 text-white focus:outline-none focus:ring-1 focus:ring-violet-500/50 focus:border-violet-500/50 shadow-inner"
                                                 disabled={isSubmitting}
                                             >
                                                 <option value="">No room</option>
@@ -411,7 +411,7 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
                                             onChange={(e) => handleInputChange("title", e.target.value)}
                                             placeholder={getFieldPlaceholder(formData.type, "title")}
                                             maxLength={160}
-                                            className={`w-full bg-slate-950 border ${errors.title ? 'border-red-500' : 'border-slate-800'} rounded-xl p-3 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 font-semibold`}
+                                            className={`w-full bg-slate-950/50 border ${errors.title ? 'border-red-500/50 focus:ring-red-500/50' : 'border-white/5 focus:border-violet-500/50 focus:ring-violet-500/50'} rounded-xl p-3 text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 font-semibold shadow-inner`}
                                             disabled={isSubmitting}
                                         />
                                         {errors.title && <p className="text-red-400 text-xs mt-1">{errors.title}</p>}
@@ -429,7 +429,7 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
                                                 onChange={(e) => handleInputChange("context", e.target.value)}
                                                 placeholder={getFieldPlaceholder(formData.type, "context")}
                                                 maxLength={160}
-                                                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                className="w-full bg-slate-950/50 border border-white/5 rounded-xl p-3 text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-violet-500/50 focus:border-violet-500/50 shadow-inner"
                                                 disabled={isSubmitting}
                                             />
                                         </div>
@@ -450,12 +450,12 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
                                                 onChange={(e) => setTagInput(e.target.value)}
                                                 onKeyPress={(e) => e.key === "Enter" && (e.preventDefault(), handleAddTag())}
                                                 placeholder="Add tag and press Enter"
-                                                className="flex-1 bg-slate-950 border border-slate-800 rounded-xl p-2 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                className="flex-1 bg-slate-950/50 border border-white/5 rounded-xl p-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-violet-500/50 focus:border-violet-500/50 shadow-inner"
                                                 disabled={isSubmitting}
                                             />
                                             <button
                                                 onClick={handleAddTag}
-                                                className="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-xl transition-colors"
+                                                className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl transition-all border border-white/5 hover:border-white/10"
                                                 disabled={isSubmitting}
                                             >
                                                 <Plus className="h-4 w-4" />
@@ -466,13 +466,13 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
                                                 {formData.tags.map(tag => (
                                                     <span
                                                         key={tag}
-                                                        className="inline-flex items-center gap-1 px-3 py-1 bg-blue-950/50 text-blue-300 rounded-full text-sm"
+                                                        className="inline-flex items-center gap-1 px-3 py-1 bg-violet-600/20 text-violet-300 rounded-full text-[13px] border border-violet-500/30 shadow-[0_0_8px_rgba(139,92,246,0.2)]"
                                                     >
                                                         <TagIcon className="h-3 w-3" />
                                                         {tag}
                                                         <button
                                                             onClick={() => handleRemoveTag(tag)}
-                                                            className="ml-1 hover:text-red-400"
+                                                            className="ml-1 hover:text-white transition-colors"
                                                             disabled={isSubmitting}
                                                         >
                                                             <X className="h-3 w-3" />
@@ -495,12 +495,12 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
                                                 onChange={(e) => setLinkInput(e.target.value)}
                                                 onKeyPress={(e) => e.key === "Enter" && (e.preventDefault(), handleAddLink())}
                                                 placeholder="Add link URL"
-                                                className="flex-1 bg-slate-950 border border-slate-800 rounded-xl p-2 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                className="flex-1 bg-slate-950/50 border border-white/5 rounded-xl p-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-violet-500/50 focus:border-violet-500/50 shadow-inner"
                                                 disabled={isSubmitting}
                                             />
                                             <button
                                                 onClick={handleAddLink}
-                                                className="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-xl transition-colors"
+                                                className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl transition-all border border-white/5 hover:border-white/10"
                                                 disabled={isSubmitting}
                                             >
                                                 <Plus className="h-4 w-4" />
@@ -511,13 +511,13 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
                                                 {formData.attachments.map((att, idx) => (
                                                     <div
                                                         key={idx}
-                                                        className="flex items-center gap-2 p-2 bg-slate-950 border border-slate-800 rounded-lg text-sm"
+                                                        className="flex items-center gap-2 p-3 bg-slate-950/50 border border-white/5 rounded-xl text-sm shadow-inner"
                                                     >
-                                                        <LinkIcon className="h-4 w-4 text-slate-400" />
+                                                        <LinkIcon className="h-4 w-4 text-violet-400" />
                                                         <span className="flex-1 truncate text-slate-300">{att.url}</span>
                                                         <button
                                                             onClick={() => handleRemoveLink(idx)}
-                                                            className="text-slate-400 hover:text-red-400"
+                                                            className="text-slate-400 hover:text-white transition-colors"
                                                             disabled={isSubmitting}
                                                         >
                                                             <X className="h-4 w-4" />
@@ -533,7 +533,7 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
                                 <div className="mt-6 flex gap-3 justify-end">
                                     <button
                                         type="button"
-                                        className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium transition-colors"
+                                        className="px-4 py-2 rounded-xl bg-transparent border border-white/5 text-slate-300 hover:bg-white/5 hover:text-white font-medium transition-colors"
                                         onClick={onClose}
                                         disabled={isSubmitting}
                                     >
@@ -541,18 +541,21 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
                                     </button>
                                     <button
                                         type="button"
-                                        className="px-6 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                                        className="px-6 py-2 rounded-xl bg-violet-600 text-white hover:bg-violet-500 shadow-[0_0_15px_rgba(139,92,246,0.3)] hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] border-0 font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 group relative overflow-hidden"
                                         onClick={handleSubmit}
                                         disabled={isSubmitting}
                                     >
-                                        {isSubmitting ? (
-                                            <>
-                                                <Loader2 className="h-4 w-4 animate-spin" />
-                                                Creating...
-                                            </>
-                                        ) : (
-                                            "Create Post"
-                                        )}
+                                        <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0" />
+                                        <span className="relative z-10 flex items-center gap-2">
+                                            {isSubmitting ? (
+                                                <>
+                                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                                    Creating...
+                                                </>
+                                            ) : (
+                                                "Create Post"
+                                            )}
+                                        </span>
                                     </button>
                                 </div>
                             </Dialog.Panel>

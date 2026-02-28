@@ -105,24 +105,24 @@ export default function Register() {
     };
 
     return (
-        <div className="w-full space-y-8 rounded-2xl bg-slate-900/40 p-6 md:p-8 border border-slate-800/60 backdrop-blur-xl shadow-2xl relative overflow-hidden group">
+        <div className="w-full space-y-8 rounded-[2rem] bg-slate-900/40 p-8 md:p-10 border border-white/5 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] relative overflow-hidden group">
             {/* Background Glow */}
-            <div className="absolute -top-24 -right-24 w-48 h-48 bg-blue-600/10 rounded-full blur-3xl pointer-events-none group-hover:bg-blue-600/20 transition-all duration-700" />
+            <div className="absolute -top-24 -right-24 w-64 h-64 bg-violet-600/10 rounded-full blur-3xl pointer-events-none group-hover:bg-violet-600/20 transition-all duration-700" />
 
             <AuthStepper currentStep={step === 1 ? 1 : 2} />
 
             <div className="text-center relative z-10">
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600/10 mb-4 ring-1 ring-blue-500/20">
+                <div className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-violet-500/10 mb-5 ring-1 ring-violet-500/30 shadow-[0_0_15px_rgba(139,92,246,0.2)]">
                     {step === 1 ? (
-                        <ShieldCheck className="h-6 w-6 text-blue-500" />
+                        <ShieldCheck className="h-7 w-7 text-violet-400 drop-shadow-[0_0_8px_rgba(139,92,246,0.6)]" />
                     ) : (
-                        <Loader2 className={loading ? "h-6 w-6 text-blue-500 animate-spin" : "h-6 w-6 text-blue-500"} />
+                        <Loader2 className={loading ? "h-7 w-7 text-violet-400 animate-spin drop-shadow-[0_0_8px_rgba(139,92,246,0.6)]" : "h-7 w-7 text-violet-400 drop-shadow-[0_0_8px_rgba(139,92,246,0.6)]"} />
                     )}
                 </div>
-                <h2 className="text-2xl font-bold tracking-tight text-white">
+                <h2 className="text-3xl font-bold tracking-tight text-white drop-shadow-sm">
                     {step === 1 ? "Access Gate" : "Create Account"}
                 </h2>
-                <p className="mt-2 text-sm text-slate-400">
+                <p className="mt-2 text-[15px] font-light text-slate-400">
                     {step === 1
                         ? "MAZIR is currently invite-only."
                         : "Join the elite knowledge network."}
@@ -131,10 +131,10 @@ export default function Register() {
 
             {step === 1 ? (
                 <form onSubmit={handleInviteSubmit} className="space-y-6 relative z-10">
-                    <div className="space-y-2">
+                    <div className="space-y-2.5">
                         <div className="flex items-center justify-between">
-                            <label className="text-sm font-medium text-slate-300">Invite Code</label>
-                            <span className="text-[10px] text-blue-400 font-bold uppercase tracking-tighter bg-blue-500/10 px-2 py-0.5 rounded">Required</span>
+                            <label className="text-sm font-medium text-slate-200">Invite Code</label>
+                            <span className="text-[10px] text-violet-400 font-bold uppercase tracking-widest bg-violet-500/10 px-2 py-0.5 rounded border border-violet-500/20 shadow-[0_0_8px_rgba(139,92,246,0.2)]">Required</span>
                         </div>
                         <Input
                             placeholder="MAZIR-XXXX-XXXX"
@@ -142,86 +142,86 @@ export default function Register() {
                             onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
                             required
                             disabled={verifyingInvite}
-                            className="bg-slate-950/50 border-slate-800 text-center uppercase tracking-[0.2em] font-mono h-14 text-lg focus:ring-blue-500/50 focus:border-blue-500/50 transition-all"
+                            className="bg-slate-950/50 border-white/5 text-center uppercase tracking-[0.2em] font-mono h-14 text-lg focus:ring-1 focus:ring-violet-500/50 focus:border-violet-500/50 rounded-xl transition-all shadow-inner text-white"
                         />
                     </div>
                     <Button
                         type="submit"
                         disabled={verifyingInvite || !inviteCode}
-                        className="w-full h-12 bg-blue-600 hover:bg-blue-500 text-white font-bold shadow-lg shadow-blue-500/20 group/btn"
+                        className="w-full h-12 bg-violet-600 hover:bg-violet-500 text-white font-bold shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.5)] border-0 rounded-xl transition-all transform hover:-translate-y-0.5 group/btn"
                     >
                         {verifyingInvite ? (
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                         ) : (
                             <>
                                 Continue
-                                <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                                <ArrowRight className="ml-2 h-5 w-5 group-hover/btn:translate-x-1 transition-transform" />
                             </>
                         )}
                     </Button>
-                    <div className="text-center text-xs text-slate-500">
-                        Don't have a code? <Link to="/auth/request-access" className="text-blue-400 hover:underline">Request access</Link>
+                    <div className="text-center text-xs text-slate-400 pt-2">
+                        Don't have a code? <Link to="/auth/request-access" className="text-violet-400 hover:text-violet-300 drop-shadow-[0_0_8px_rgba(139,92,246,0.3)] hover:underline transition-colors">Request access</Link>
                     </div>
                 </form>
             ) : (
                 <form onSubmit={handleRegister} className="space-y-6 relative z-10">
-                    <div className="space-y-4">
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-300">Username</label>
+                    <div className="space-y-5">
+                        <div className="space-y-2.5">
+                            <label className="text-sm font-medium text-slate-200">Username</label>
                             <Input
                                 placeholder="rootzero"
                                 value={formData.username}
                                 onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                                 required
-                                className="bg-slate-950/50 border-slate-800 focus:ring-blue-500/50"
+                                className="bg-slate-950/50 border-white/5 text-white placeholder:text-slate-600 focus:ring-1 focus:ring-violet-500/50 focus:border-violet-500/50 h-12 rounded-xl transition-all"
                             />
                         </div>
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-300">Email Address</label>
+                        <div className="space-y-2.5">
+                            <label className="text-sm font-medium text-slate-200">Email Address</label>
                             <Input
                                 type="email"
                                 placeholder="name@company.com"
                                 value={formData.email}
                                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                 required
-                                className="bg-slate-950/50 border-slate-800 focus:ring-blue-500/50"
+                                className="bg-slate-950/50 border-white/5 text-white placeholder:text-slate-600 focus:ring-1 focus:ring-violet-500/50 focus:border-violet-500/50 h-12 rounded-xl transition-all"
                             />
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-slate-300">Password</label>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div className="space-y-2.5">
+                                <label className="text-sm font-medium text-slate-200">Password</label>
                                 <Input
                                     type="password"
                                     value={formData.password}
                                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                     required
-                                    className="bg-slate-950/50 border-slate-800 focus:ring-blue-500/50"
+                                    className="bg-slate-950/50 border-white/5 text-white placeholder:text-slate-600 focus:ring-1 focus:ring-violet-500/50 focus:border-violet-500/50 h-12 rounded-xl transition-all"
                                 />
                             </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-slate-300">Confirm Password</label>
+                            <div className="space-y-2.5">
+                                <label className="text-sm font-medium text-slate-200">Confirm Password</label>
                                 <Input
                                     type="password"
                                     value={formData.confirmPassword}
                                     onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                                     required
-                                    className="bg-slate-950/50 border-slate-800 focus:ring-blue-500/50"
+                                    className="bg-slate-950/50 border-white/5 text-white placeholder:text-slate-600 focus:ring-1 focus:ring-violet-500/50 focus:border-violet-500/50 h-12 rounded-xl transition-all"
                                 />
                             </div>
                         </div>
                     </div>
 
-                    <Button type="submit" className="w-full h-12 bg-blue-600 hover:bg-blue-500 font-bold shadow-lg shadow-blue-500/20" disabled={loading}>
+                    <Button type="submit" className="w-full h-12 bg-violet-600 hover:bg-violet-500 text-white font-bold shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.5)] border-0 rounded-xl transition-all transform hover:-translate-y-0.5" disabled={loading}>
                         {loading ? (
-                            <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Finalizing Account...</>
+                            <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Finalizing Account...</>
                         ) : (
                             "Complete Registration"
                         )}
                     </Button>
 
-                    <div className="text-center text-sm text-slate-500">
+                    <div className="text-center text-sm text-slate-400 pt-2">
                         Already have an account?{" "}
-                        <Link to="/auth/login" className="font-medium text-blue-400 hover:text-blue-300">
+                        <Link to="/auth/login" className="font-medium text-violet-400 hover:text-violet-300 drop-shadow-[0_0_8px_rgba(139,92,246,0.3)] transition-colors">
                             Sign in instead
                         </Link>
                     </div>

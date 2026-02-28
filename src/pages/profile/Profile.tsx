@@ -313,26 +313,18 @@ export default function Profile() {
 
     if (loading) {
         return (
-            <div className="h-full overflow-y-auto pb-20 md:pb-0">
-                <div className="max-w-4xl mx-auto space-y-6">
-                    {/* Cover skeleton */}
-                    <div className="h-64 bg-slate-800 animate-pulse rounded-b-2xl" />
-
-                    {/* Profile info skeleton */}
-                    <div className="px-4 space-y-4 -mt-16">
-                        <div className="h-32 w-32 rounded-2xl bg-slate-800 animate-pulse border-4 border-slate-950" />
-                        <div className="space-y-2">
-                            <div className="h-8 w-48 bg-slate-800 rounded animate-pulse" />
-                            <div className="h-4 w-32 bg-slate-800 rounded animate-pulse" />
-                            <div className="h-4 w-64 bg-slate-800 rounded animate-pulse" />
+            <div className="h-full overflow-y-auto pb-20 md:pb-0 relative bg-transparent">
+                {/* Ambient Glow */}
+                <div className="fixed top-0 left-0 w-[500px] h-[500px] rounded-full bg-violet-600/5 blur-[120px] pointer-events-none z-0" />
+                <div className="max-w-4xl mx-auto space-y-6 relative z-10">
+                    <div className="h-64 bg-slate-900/40 backdrop-blur-md animate-pulse border-b border-white/5" />
+                    <div className="px-4 md:px-8 space-y-4 -mt-16">
+                        <div className="h-32 w-32 rounded-2xl bg-slate-800 animate-pulse border border-white/5 shadow-xl" />
+                        <div className="space-y-3">
+                            <div className="h-8 w-48 bg-slate-800/50 rounded animate-pulse" />
+                            <div className="h-4 w-32 bg-slate-800/50 rounded animate-pulse" />
+                            <div className="h-4 w-64 bg-slate-800/50 rounded animate-pulse" />
                         </div>
-                    </div>
-
-                    {/* Posts skeleton */}
-                    <div className="px-4 space-y-4">
-                        {[1, 2, 3].map(i => (
-                            <div key={i} className="h-48 bg-slate-800 rounded-2xl animate-pulse" />
-                        ))}
                     </div>
                 </div>
             </div>
@@ -341,18 +333,20 @@ export default function Profile() {
 
     if (error) {
         return (
-            <div className="h-full flex items-center justify-center p-4">
-                <div className="text-center max-w-md">
+            <div className="h-full flex items-center justify-center p-4 relative bg-transparent">
+                <div className="fixed inset-0 bg-slate-950 pointer-events-none -z-10" />
+                <div className="text-center max-w-md bg-slate-900/40 backdrop-blur-xl border border-white/5 p-10 rounded-[2rem] shadow-2xl relative">
                     <div className="mb-4">
-                        <div className="h-16 w-16 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-4">
-                            <UserIcon className="h-8 w-8 text-red-500" />
+                        <div className="absolute -inset-1 bg-red-500/20 rounded-[2rem] blur-xl" />
+                        <div className="h-16 w-16 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-4 border border-red-500/20 relative">
+                            <UserIcon className="h-8 w-8 text-red-500 drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
                         </div>
-                        <h2 className="text-2xl font-bold text-white mb-2">Failed to Load Profile</h2>
-                        <p className="text-slate-400 mb-6">{error}</p>
+                        <h2 className="text-2xl font-bold text-white mb-2 relative">Failed to Load Profile</h2>
+                        <p className="text-slate-400 mb-6 font-light relative">{error}</p>
                     </div>
                     <Button
                         onClick={fetchProfile}
-                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                        className="bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_25px_rgba(37,99,235,0.5)] border-0 rounded-xl px-8 relative z-10"
                     >
                         Try Again
                     </Button>
@@ -363,10 +357,11 @@ export default function Profile() {
 
     if (!profileUser) {
         return (
-            <div className="h-full flex items-center justify-center">
-                <div className="text-center">
-                    <h2 className="text-2xl font-bold text-slate-300 mb-2">User not found</h2>
-                    <p className="text-slate-500">This profile doesn't exist or has been removed.</p>
+            <div className="h-full flex items-center justify-center relative bg-transparent">
+                <div className="fixed inset-0 bg-slate-950 pointer-events-none -z-10" />
+                <div className="text-center bg-slate-900/40 backdrop-blur-xl border border-white/5 p-10 rounded-[2rem] shadow-2xl">
+                    <h2 className="text-2xl font-bold text-white mb-2">User not found</h2>
+                    <p className="text-slate-400 font-light">This profile doesn't exist or has been removed.</p>
                 </div>
             </div>
         );
@@ -377,35 +372,40 @@ export default function Profile() {
 
     return (
         <>
-            <div className="h-full overflow-y-auto pb-20 md:pb-0">
-                <div className="max-w-4xl mx-auto">
+            <div className="h-full overflow-y-auto pb-20 md:pb-0 relative bg-transparent">
+                {/* Ambient Glows */}
+                <div className="fixed top-0 left-0 w-[500px] h-[500px] rounded-full bg-violet-600/5 blur-[120px] pointer-events-none z-0" />
+                <div className="fixed bottom-0 right-0 w-[600px] h-[600px] rounded-full bg-sky-500/5 blur-[150px] pointer-events-none z-0" />
+
+                <div className="max-w-4xl mx-auto relative z-10">
                     {/* Cover Image */}
-                    <div className="relative h-64 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 group">
+                    <div className="relative h-64 bg-slate-900 group">
                         {coverUrl && (
                             <img
                                 src={coverUrl}
                                 alt="Cover"
-                                className="w-full h-full object-cover transition-opacity duration-700 ease-in-out"
+                                className="w-full h-full object-cover transition-opacity duration-700 ease-in-out mix-blend-screen opacity-60 pointer-events-none"
                                 style={{ opacity: 1 }}
                                 key={(profileUser as any)._coverTimestamp || coverUrl}
                             />
                         )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent pointer-events-none" />
 
                         {/* Upload cover button (owner only) */}
                         {isOwnProfile && (
                             <button
                                 onClick={handleCoverUpload}
                                 disabled={uploadingCover}
-                                className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 backdrop-blur-sm text-white px-4 py-2 rounded-xl font-medium transition-all opacity-0 group-hover:opacity-100 flex items-center gap-2"
+                                className="absolute top-4 right-4 bg-slate-900/50 hover:bg-slate-900/80 backdrop-blur-md border border-white/10 text-white px-4 py-2 rounded-xl text-sm transition-all opacity-0 group-hover:opacity-100 flex items-center gap-2 shadow-sm"
                             >
                                 {uploadingCover ? (
                                     <>
-                                        <Loader2 className="h-4 w-4 animate-spin" />
+                                        <Loader2 className="h-4 w-4 animate-spin text-violet-400" />
                                         {coverProgress}%
                                     </>
                                 ) : (
                                     <>
-                                        <Camera className="h-4 w-4" />
+                                        <Camera className="h-4 w-4 text-violet-400" />
                                         Change Cover
                                     </>
                                 )}
@@ -414,11 +414,12 @@ export default function Profile() {
                     </div>
 
                     {/* Profile Info */}
-                    <div className="px-4 md:px-6 pb-6">
+                    <div className="px-4 md:px-8 pb-10">
                         {/* Avatar & Edit Button */}
-                        <div className="flex items-end justify-between -mt-16 mb-4">
+                        <div className="flex items-end justify-between -mt-16 mb-4 relative z-20">
                             <div className="relative group">
-                                <div className="h-32 w-32 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-4xl font-bold text-white overflow-hidden border-4 border-slate-950 ring-4 ring-slate-800">
+                                <div className="absolute -inset-1 bg-gradient-to-br from-violet-600/30 to-sky-500/30 rounded-[1.2rem] blur-xl opacity-100" />
+                                <div className="h-32 w-32 rounded-[1.2rem] bg-slate-900 flex items-center justify-center text-4xl font-bold text-white overflow-hidden border border-white/10 ring-4 ring-slate-950 relative shadow-2xl">
                                     {safeUser.avatarUrl ? (
                                         <img
                                             src={safeUser.avatarUrl}
@@ -428,7 +429,9 @@ export default function Profile() {
                                             key={(profileUser as any)._avatarTimestamp || safeUser.avatarUrl}
                                         />
                                     ) : (
-                                        <span>{safeUser.username[0]?.toUpperCase()}</span>
+                                        <span className="bg-gradient-to-br from-violet-400 to-sky-400 bg-clip-text text-transparent">
+                                            {safeUser.username[0]?.toUpperCase()}
+                                        </span>
                                     )}
                                 </div>
 
@@ -437,17 +440,16 @@ export default function Profile() {
                                     <button
                                         onClick={handleAvatarUpload}
                                         disabled={uploadingAvatar}
-                                        className="absolute inset-0 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                                        className="absolute inset-0 bg-slate-900/60 hover:bg-slate-900/80 backdrop-blur-sm rounded-[1.2rem] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity border border-white/10"
                                     >
                                         {uploadingAvatar ? (
                                             <div className="text-white text-center">
-                                                <Loader2 className="h-6 w-6 animate-spin mx-auto mb-1" />
-                                                <span className="text-xs">{avatarProgress}%</span>
+                                                <Loader2 className="h-6 w-6 animate-spin mx-auto mb-1 text-violet-400" />
+                                                <span className="text-xs font-mono">{avatarProgress}%</span>
                                             </div>
                                         ) : (
                                             <div className="text-white text-center">
-                                                <Camera className="h-6 w-6 mx-auto mb-1" />
-                                                <span className="text-xs font-medium">Change</span>
+                                                <Camera className="h-6 w-6 mx-auto mb-1 text-violet-400 drop-shadow-[0_0_8px_rgba(139,92,246,0.5)]" />
                                             </div>
                                         )}
                                     </button>
@@ -455,49 +457,49 @@ export default function Profile() {
                             </div>
 
                             {isOwnProfile && (
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-2 mb-2">
                                     <Link to="/settings">
                                         <Button
                                             variant="outline"
                                             size="icon"
-                                            className="h-10 w-10 md:hidden bg-slate-900/50 border-slate-800 backdrop-blur-sm"
+                                            className="h-11 w-11 md:hidden bg-slate-900/40 border-white/5 backdrop-blur-md hover:bg-white/5 hover:text-white transition-all rounded-xl shadow-sm"
                                         >
-                                            <Settings className="h-4 w-4" />
+                                            <Settings className="h-5 w-5" />
                                         </Button>
                                     </Link>
                                     <Button
                                         onClick={() => setIsEditModalOpen(true)}
                                         variant="outline"
-                                        className="gap-2 bg-slate-900/50 border-slate-800 backdrop-blur-sm"
+                                        className="gap-2 bg-slate-900/40 border-white/5 backdrop-blur-md hover:bg-white/5 hover:text-white transition-all rounded-xl h-11 px-5 shadow-[0_4px_12px_rgba(0,0,0,0.1)]"
                                     >
-                                        <Edit3 className="h-4 w-4" />
-                                        <span className="hidden sm:inline">Edit Profile</span>
-                                        <span className="sm:hidden">Edit</span>
+                                        <Edit3 className="h-4 w-4 text-violet-400" />
+                                        <span className="hidden sm:inline font-medium">Edit Profile</span>
+                                        <span className="sm:hidden font-medium">Edit</span>
                                     </Button>
                                 </div>
                             )}
                         </div>
 
                         {/* User Details */}
-                        <div className="space-y-3">
+                        <div className="space-y-4 max-w-2xl relative z-10">
                             <div className="flex flex-col gap-1">
                                 <div className="flex items-center gap-3">
-                                    <h1 className="text-2xl font-bold text-white tracking-tight">{safeUser.displayName}</h1>
+                                    <h1 className="text-3xl font-bold tracking-tight text-white drop-shadow-sm">{safeUser.displayName}</h1>
                                     {(profileUser.level !== undefined && profileUser.level !== null) && (
                                         <LevelBadge level={profileUser.level} />
                                     )}
                                 </div>
-                                <p className="text-slate-400 font-medium">@{safeUser.username}</p>
+                                <p className="text-[15px] font-mono text-violet-400/80">@{safeUser.username}</p>
                             </div>
 
                             {profileUser.bio && (
-                                <p className="text-slate-300 leading-relaxed">{profileUser.bio}</p>
+                                <p className="text-[15px] font-light text-slate-300 leading-relaxed drop-shadow-sm">{profileUser.bio}</p>
                             )}
 
-                            <div className="flex flex-wrap items-center gap-4 text-sm text-slate-400">
+                            <div className="flex flex-wrap items-center gap-5 text-[14px] text-slate-400/80 pt-2 border-t border-white/5">
                                 {(profileUser as any).location && (
-                                    <div className="flex items-center gap-1">
-                                        <MapPin className="h-4 w-4" />
+                                    <div className="flex items-center gap-1.5 font-light">
+                                        <MapPin className="h-4 w-4 text-slate-500" />
                                         <span>{(profileUser as any).location}</span>
                                     </div>
                                 )}
@@ -507,56 +509,56 @@ export default function Profile() {
                                         href={(profileUser as any).website}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-1 hover:text-blue-400 transition-colors"
+                                        className="flex items-center gap-1.5 hover:text-blue-400 transition-colors font-light"
                                     >
-                                        <Globe className="h-4 w-4" />
+                                        <Globe className="h-4 w-4 text-blue-500" />
                                         <span>{(profileUser as any).website.replace(/^https?:\/\//, '')}</span>
                                     </a>
                                 )}
 
-                                <div className="flex items-center gap-1">
-                                    <Calendar className="h-4 w-4" />
+                                <div className="flex items-center gap-1.5 font-light">
+                                    <Calendar className="h-4 w-4 text-slate-500" />
                                     <span>Joined {formatJoinDate(profileUser.createdAt || '')}</span>
                                 </div>
                             </div>
                         </div>
 
                         {/* Tabs */}
-                        <div className="flex items-center gap-6 mt-8 border-b border-slate-800">
+                        <div className="flex items-center gap-6 mt-8 border-b border-white/5 relative z-10">
                             <button
                                 onClick={() => setActiveTab("POSTS")}
                                 className={cn(
-                                    "pb-4 text-sm font-medium transition-colors relative",
+                                    "pb-4 text-[15px] font-medium transition-colors relative",
                                     activeTab === "POSTS" ? "text-white" : "text-slate-500 hover:text-slate-300"
                                 )}
                             >
                                 <div className="flex items-center gap-2">
-                                    <Grid className="h-4 w-4" />
+                                    <Grid className={cn("h-4 w-4 transition-colors", activeTab === "POSTS" ? "text-violet-400" : "")} />
                                     Posts
                                 </div>
                                 {activeTab === "POSTS" && (
-                                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 rounded-t-full" />
+                                    <div className="absolute bottom-0 left-0 w-full h-[2px] bg-violet-500 rounded-t-full drop-shadow-[0_0_8px_rgba(139,92,246,0.6)]" />
                                 )}
                             </button>
                             <button
                                 onClick={() => setActiveTab("PROJECTS")}
                                 className={cn(
-                                    "pb-4 text-sm font-medium transition-colors relative",
+                                    "pb-4 text-[15px] font-medium transition-colors relative",
                                     activeTab === "PROJECTS" ? "text-white" : "text-slate-500 hover:text-slate-300"
                                 )}
                             >
                                 <div className="flex items-center gap-2">
-                                    <FolderGit2 className="h-4 w-4" />
+                                    <FolderGit2 className={cn("h-4 w-4 transition-colors", activeTab === "PROJECTS" ? "text-violet-400" : "")} />
                                     Projects
                                 </div>
                                 {activeTab === "PROJECTS" && (
-                                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 rounded-t-full" />
+                                    <div className="absolute bottom-0 left-0 w-full h-[2px] bg-violet-500 rounded-t-full drop-shadow-[0_0_8px_rgba(139,92,246,0.6)]" />
                                 )}
                             </button>
                         </div>
 
                         {/* Content Section */}
-                        <div className="py-6 space-y-4">
+                        <div className="py-8 space-y-4 relative z-10">
                             {activeTab === "POSTS" && (
                                 <div className="space-y-4">
                                     {posts && posts.length > 0 ? (
@@ -567,8 +569,8 @@ export default function Profile() {
                                             />
                                         ))
                                     ) : (
-                                        <div className="text-center py-12 text-slate-500 bg-slate-900/30 rounded-2xl border border-slate-800/50">
-                                            <p>No posts yet</p>
+                                        <div className="text-center py-16 text-slate-500 bg-slate-900/40 backdrop-blur-xl rounded-[2rem] border border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
+                                            <p className="font-light">No posts yet</p>
                                         </div>
                                     )}
                                 </div>
@@ -583,12 +585,12 @@ export default function Profile() {
                                             </div>
                                         ))
                                     ) : (
-                                        <div className="col-span-full text-center py-12 text-slate-500 bg-slate-900/30 rounded-2xl border border-slate-800/50">
-                                            <FolderGit2 className="h-12 w-12 mx-auto mb-3 text-slate-600" />
-                                            <p className="text-lg font-medium text-slate-400">No projects yet</p>
+                                        <div className="col-span-full text-center py-16 text-slate-500 bg-slate-900/40 backdrop-blur-xl rounded-[2rem] border border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
+                                            <FolderGit2 className="h-12 w-12 mx-auto mb-4 text-violet-500/50 drop-shadow-[0_0_8px_rgba(139,92,246,0.2)]" />
+                                            <p className="text-lg font-medium text-slate-300">No projects yet</p>
                                             {isOwnProfile && (
                                                 <Link to="/create-project">
-                                                    <Button variant="link" className="text-blue-400 mt-2">
+                                                    <Button variant="link" className="text-violet-400 mt-2 hover:text-violet-300 decoration-violet-500/30">
                                                         Create your first project
                                                     </Button>
                                                 </Link>

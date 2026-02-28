@@ -185,11 +185,14 @@ export default function PostCard({ post, onUpdate }: PostCardProps) {
 
     return (
         <>
-            <div className="group relative rounded-2xl border border-slate-800 bg-slate-950/50 p-6 transition-all hover:border-blue-500/30 hover:shadow-[0_0_20px_rgba(59,130,246,0.05)] hover:bg-slate-950">
+            <div className="group relative rounded-2xl border border-white/5 bg-slate-900/40 backdrop-blur-md p-5 sm:p-6 transition-all hover:border-violet-500/30 hover:shadow-[0_0_20px_rgba(139,92,246,0.15)] hover:bg-slate-900/60 shadow-inner overflow-hidden">
+                {/* Subtle background gradient on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-violet-600/0 to-sky-500/0 group-hover:from-violet-600/5 group-hover:to-sky-500/5 transition-colors duration-500 pointer-events-none" />
+
                 {/* Header */}
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex items-start justify-between mb-4 relative z-10">
                     <Link to={`/profile/${author.username}`} className="flex items-center gap-3 group/author">
-                        <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-sm font-bold text-white overflow-hidden ring-2 ring-slate-800 transition-all group-hover/author:ring-blue-500/50">
+                        <div className="h-10 w-10 rounded-full bg-gradient-to-br from-violet-600 to-sky-500 flex items-center justify-center text-sm font-bold text-white overflow-hidden ring-2 ring-slate-800 transition-all group-hover/author:ring-violet-500/50 shadow-[0_0_10px_rgba(139,92,246,0.2)]">
                             {author.avatarUrl ? (
                                 <img src={author.avatarUrl} alt={author.username} className="h-full w-full object-cover" />
                             ) : (
@@ -197,23 +200,23 @@ export default function PostCard({ post, onUpdate }: PostCardProps) {
                             )}
                         </div>
                         <div>
-                            <div className="text-sm font-semibold text-white group-hover/author:text-blue-400 transition-colors">{author.displayName}</div>
-                            <div className="text-xs text-slate-500">{timeAgo}</div>
+                            <div className="text-sm font-semibold text-white group-hover/author:text-violet-400 transition-colors">{author.displayName}</div>
+                            <div className="text-[12px] text-slate-500">{timeAgo}</div>
                         </div>
                     </Link>
                     <PostTypeBadge type={post.type as any} />
                 </div>
 
                 {/* Content */}
-                <Link to={`/thread/${post.id}`} className="block space-y-3">
+                <Link to={`/thread/${post.id}`} className="block space-y-3 relative z-10">
                     {/* Title */}
-                    <h3 className="text-xl font-bold leading-tight text-white group-hover:text-blue-400 transition-colors">
+                    <h3 className="text-xl font-bold leading-tight text-white group-hover:text-violet-300 transition-colors">
                         {post.title}
                     </h3>
 
                     {/* Context (if present) */}
                     {post.context && post.type !== "PROJECT_UPDATE" && (
-                        <p className="text-sm text-slate-500 italic">
+                        <p className="text-sm text-slate-500/90 italic font-light">
                             {post.context}
                         </p>
                     )}
@@ -226,36 +229,36 @@ export default function PostCard({ post, onUpdate }: PostCardProps) {
 
                 {/* Tags */}
                 {post.tags && post.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-4">
+                    <div className="flex flex-wrap gap-2 mt-4 relative z-10">
                         {post.tags.slice(0, 5).map(tag => (
                             <span
                                 key={tag}
-                                className="text-xs font-medium text-blue-400 bg-blue-950/30 px-2 py-1 rounded-md border border-blue-500/20"
+                                className="text-[11px] font-medium text-violet-300 bg-violet-500/10 px-2.5 py-1 rounded-full border border-violet-500/20 shadow-[0_0_10px_rgba(139,92,246,0.05)] uppercase tracking-wider"
                             >
                                 #{tag}
                             </span>
                         ))}
                         {post.tags.length > 5 && (
-                            <span className="text-xs text-slate-500">+{post.tags.length - 5} more</span>
+                            <span className="text-[11px] font-medium text-slate-500 bg-slate-800/50 px-2.5 py-1 rounded-full border border-slate-700/50 uppercase tracking-wider">+{post.tags.length - 5} more</span>
                         )}
                     </div>
                 )}
 
                 {/* Attachments */}
                 {post.attachments && post.attachments.length > 0 && (
-                    <div className="mt-3 flex items-center gap-2 text-xs text-slate-500">
-                        <ExternalLink className="h-3 w-3" />
+                    <div className="mt-3 flex items-center gap-2 text-[12px] text-slate-500 relative z-10">
+                        <ExternalLink className="h-3.5 w-3.5" />
                         <span>{post.attachments.length} link{post.attachments.length > 1 ? 's' : ''} attached</span>
                     </div>
                 )}
 
                 {/* Actions */}
-                <div className="mt-5 flex items-center gap-6 pt-4 border-t border-slate-800/50">
+                <div className="mt-5 flex items-center gap-6 pt-4 border-t border-white/5 relative z-10">
                     <button
                         onClick={handleHelpful}
-                        className={`flex items-center gap-2 text-sm font-medium transition-colors ${liked
-                            ? "text-blue-400"
-                            : "text-slate-400 hover:text-blue-400"
+                        className={`flex items-center gap-2 text-sm font-medium transition-all ${liked
+                            ? "text-violet-400 drop-shadow-[0_0_8px_rgba(139,92,246,0.5)] scale-105"
+                            : "text-slate-400 hover:text-violet-400 hover:scale-105"
                             }`}
                     >
                         <ThumbsUp className={`h-4 w-4 ${liked ? "fill-current" : ""}`} />
@@ -263,14 +266,14 @@ export default function PostCard({ post, onUpdate }: PostCardProps) {
                     </button>
                     <button
                         onClick={handleCommentClick}
-                        className="flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-white transition-colors"
+                        className="flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-sky-400 hover:scale-105 transition-all drop-shadow-none hover:drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]"
                     >
                         <MessageSquare className="h-4 w-4" />
                         <span>{commentsCount || 0}</span>
                     </button>
                     <button
                         onClick={handleShare}
-                        className="flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-white transition-colors ml-auto"
+                        className="flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-white hover:scale-105 transition-all ml-auto drop-shadow-none hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]"
                     >
                         <Share2 className="h-4 w-4" />
                         <span className="hidden sm:inline">Share</span>

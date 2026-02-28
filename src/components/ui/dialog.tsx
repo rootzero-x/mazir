@@ -16,7 +16,7 @@ const Dialog = ({
 }) => {
     return (
         <Transition show={open} as={React.Fragment}>
-            <HeadlessDialog as="div" className="relative z-50" onClose={() => onOpenChange?.(false)}>
+            <HeadlessDialog as="div" className="relative z-[100]" onClose={() => onOpenChange?.(false)}>
                 <Transition.Child
                     as={React.Fragment}
                     enter="ease-out duration-300"
@@ -26,7 +26,7 @@ const Dialog = ({
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm" />
+                    <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm transition-opacity" aria-hidden="true" />
                 </Transition.Child>
 
                 <div className="fixed inset-0 overflow-y-auto">
@@ -40,13 +40,13 @@ const Dialog = ({
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <HeadlessDialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-slate-900 border border-slate-800 p-6 text-left align-middle shadow-xl transition-all">
+                            <HeadlessDialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-[2rem] bg-slate-900/40 border border-white/5 p-8 text-left align-middle shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl transition-all relative z-10">
                                 {children}
                                 <button
                                     onClick={() => onOpenChange?.(false)}
-                                    className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
+                                    className="absolute right-6 top-6 rounded-full p-2 opacity-70 ring-offset-background transition-all hover:opacity-100 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:ring-offset-0 disabled:pointer-events-none data-[state=open]:bg-white/10 z-50"
                                 >
-                                    <X className="h-4 w-4 text-slate-400 hover:text-white" />
+                                    <X className="h-5 w-5 text-slate-400 hover:text-white transition-colors" />
                                     <span className="sr-only">Close</span>
                                 </button>
                             </HeadlessDialog.Panel>

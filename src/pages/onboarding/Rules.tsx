@@ -94,12 +94,16 @@ export default function Rules() {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-4">
-            <div className="w-full max-w-2xl space-y-8 rounded-2xl bg-slate-900/50 p-8 border border-slate-800 backdrop-blur-xl">
+        <div className="flex min-h-screen items-center justify-center bg-slate-950 p-4 relative overflow-hidden">
+            {/* Ambient Glows */}
+            <div className="fixed top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-violet-600/10 blur-[150px] pointer-events-none z-0" />
+            <div className="fixed bottom-[-10%] left-[-5%] w-[600px] h-[600px] rounded-full bg-sky-500/10 blur-[150px] pointer-events-none z-0" />
+
+            <div className="w-full max-w-2xl space-y-8 rounded-[2rem] bg-slate-900/40 p-8 border border-white/5 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
                 <OnboardingStepper currentStep={2} />
 
                 <div className="space-y-2 text-center">
-                    <h1 className="text-3xl font-bold tracking-tight text-white">
+                    <h1 className="text-3xl font-bold tracking-tight text-white drop-shadow-sm">
                         Community Rules
                     </h1>
                     <p className="text-slate-400">
@@ -109,43 +113,45 @@ export default function Rules() {
 
                 <div className="space-y-6">
                     {/* Accept All Checkbox */}
-                    <div className="flex items-center space-x-3 rounded-lg border-2 border-blue-600 bg-blue-600/10 p-4">
+                    <div className="flex items-center space-x-4 rounded-xl border border-violet-500/50 bg-violet-600/10 p-5 shadow-[0_0_15px_rgba(139,92,246,0.15)] ring-1 ring-violet-500/30">
                         <Checkbox
                             checked={agreeAll}
                             onCheckedChange={toggleAgreeAll}
                             id="agree-all"
+                            className="border-violet-400 bg-slate-950/50 data-[state=checked]:bg-violet-600 data-[state=checked]:text-white"
                         />
                         <label
                             htmlFor="agree-all"
-                            className="flex-1 text-sm font-semibold text-white cursor-pointer"
+                            className="flex-1 text-[15px] font-bold text-white cursor-pointer tracking-wide drop-shadow-[0_0_8px_rgba(139,92,246,0.3)]"
                         >
                             I agree to all community rules
                         </label>
                     </div>
 
                     {/* Individual Rules */}
-                    <div className="space-y-4">
+                    <div className="space-y-3.5">
                         {COMMUNITY_RULES.map((rule) => (
                             <div
                                 key={rule.id}
-                                className={`flex items-start space-x-3 rounded-lg border-2 p-4 transition-all ${acceptedRules.includes(rule.id)
-                                    ? "border-slate-700 bg-slate-950/50"
-                                    : "border-slate-800 bg-slate-950/30"
+                                className={`flex items-start space-x-4 rounded-xl border p-5 transition-all ${acceptedRules.includes(rule.id)
+                                    ? "border-violet-500/30 bg-slate-900/70 shadow-[0_4px_15px_rgba(139,92,246,0.1)]"
+                                    : "border-white/5 bg-slate-950/50 shadow-inner"
                                     }`}
                             >
                                 <Checkbox
                                     checked={acceptedRules.includes(rule.id)}
                                     onCheckedChange={() => toggleRule(rule.id)}
                                     id={rule.id}
+                                    className="mt-0.5 border-white/20 data-[state=checked]:bg-violet-600 data-[state=checked]:text-white shadow-inner"
                                 />
                                 <label
                                     htmlFor={rule.id}
-                                    className="flex-1 cursor-pointer space-y-1"
+                                    className="flex-1 cursor-pointer space-y-1.5"
                                 >
-                                    <div className="text-sm font-semibold text-white">
+                                    <div className="text-[15px] font-semibold text-slate-200">
                                         {rule.title}
                                     </div>
-                                    <div className="text-xs text-slate-400">
+                                    <div className="text-sm text-slate-400 font-light pr-4 leading-relaxed">
                                         {rule.description}
                                     </div>
                                 </label>
@@ -156,7 +162,7 @@ export default function Rules() {
                     <Button
                         onClick={handleAccept}
                         disabled={loading || !agreeAll}
-                        className="w-full h-12 bg-blue-600 hover:bg-blue-500 text-white font-semibold"
+                        className="w-full h-12 bg-violet-600 hover:bg-violet-500 text-white font-bold shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.5)] border-0 rounded-xl transition-all transform hover:-translate-y-0.5"
                     >
                         {loading ? "Saving..." : "Accept & Continue"}
                     </Button>

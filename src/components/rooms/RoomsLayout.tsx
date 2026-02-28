@@ -96,12 +96,12 @@ export default function RoomsLayout() {
     }
 
     return (
-        <div className="flex h-full w-full overflow-hidden bg-slate-950 md:bg-black">
+        <div className="flex h-full w-full overflow-hidden bg-transparent">
             {/* Left Panel: Rooms List */}
             {/* Hidden on mobile if room is selected */}
             <div
                 className={`${slug ? "hidden" : "flex"
-                    } w-full flex-col border-r border-slate-800 bg-slate-950 md:flex md:w-80 lg:w-96 shrink-0 h-full`}
+                    } w-full flex-col border-r border-white/5 bg-slate-900/40 backdrop-blur-md md:flex md:w-80 lg:w-96 shrink-0 h-full relative z-10`}
             >
                 <RoomsList
                     rooms={rooms}
@@ -118,18 +118,18 @@ export default function RoomsLayout() {
 
             {/* Center Panel: Chat */}
             {/* Full width on mobile if room selected, else hidden */}
-            <div className={`flex-1 flex flex-col min-w-0 h-full bg-slate-950 relative ${!slug ? "hidden md:flex" : "flex"}`}>
+            <div className={`flex-1 flex flex-col min-h-0 bg-slate-950/20 backdrop-blur-sm relative z-0 ${!slug ? "hidden md:flex" : "flex"}`}>
                 {activeRoom ? (
                     <RoomChat room={activeRoom} onToggleInfo={handleToggleInfo} />
                 ) : (
                     // Empty State (Desktop only)
-                    <div className="hidden h-full flex-col items-center justify-center text-slate-500 md:flex">
-                        <div className="mb-4 rounded-full bg-slate-900 p-6 ring-1 ring-slate-800">
-                            <span className="text-4xl">💬</span>
+                    <div className="hidden h-full flex-col items-center justify-center md:flex p-6 group">
+                        <div className="mb-6 h-24 w-24 rounded-[2rem] bg-slate-900/50 backdrop-blur-md border border-white/5 flex items-center justify-center shadow-[inset_0_0_20px_rgba(139,92,246,0.1)] transition-transform group-hover:scale-105 duration-500">
+                            <span className="text-5xl drop-shadow-lg filter">💬</span>
                         </div>
-                        <h2 className="text-xl font-bold text-white">Select a room</h2>
-                        <p className="max-w-xs text-center text-sm">
-                            Choose a community from the sidebar to start chatting.
+                        <h2 className="text-2xl font-bold text-white tracking-tight mb-2">Select a community</h2>
+                        <p className="max-w-xs text-center text-slate-400 font-light leading-relaxed">
+                            Choose a room from the sidebar to join the conversation and share your insights.
                         </p>
                     </div>
                 )}

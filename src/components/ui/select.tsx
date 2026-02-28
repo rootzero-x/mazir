@@ -19,7 +19,7 @@ const SelectTrigger = ({ className, children, ...props }: any) => {
     return (
         <Listbox.Button
             className={cn(
-                "relative w-full cursor-default rounded-lg bg-slate-950 py-3 pl-3 pr-10 text-left shadow-md focus:outline-none sm:text-sm border border-slate-800 text-slate-200",
+                "relative w-full cursor-default rounded-xl bg-slate-950/50 py-3 pl-4 pr-10 text-left shadow-inner focus:outline-none sm:text-sm border border-white/5 text-slate-200 focus-visible:ring-1 focus-visible:ring-violet-500/50 focus:border-violet-500/50 transition-all",
                 className
             )}
             {...props}
@@ -46,7 +46,7 @@ const SelectContent = ({ className, children, ...props }: any) => (
     >
         <Listbox.Options
             className={cn(
-                "absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-slate-900 py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm border border-slate-800 z-50",
+                "absolute mt-2 max-h-60 w-full overflow-auto rounded-xl bg-slate-900/90 py-1.5 text-base shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-xl ring-1 ring-white/10 focus:outline-none sm:text-sm border border-white/5 z-50",
                 className
             )}
             {...props}
@@ -60,8 +60,8 @@ const SelectItem = ({ value, children, className, ...props }: any) => (
     <Listbox.Option
         className={({ active }) =>
             cn(
-                "relative cursor-default select-none py-2 pl-10 pr-4",
-                active ? "bg-slate-800 text-white" : "text-slate-300",
+                "relative cursor-default select-none py-2.5 pl-10 pr-4 transition-colors",
+                active ? "bg-violet-600/20 text-white" : "text-slate-300",
                 className
             )
         }
@@ -74,7 +74,7 @@ const SelectItem = ({ value, children, className, ...props }: any) => (
                     {children}
                 </span>
                 {selected ? (
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-400">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-violet-400 drop-shadow-[0_0_8px_rgba(139,92,246,0.6)]">
                         <Check className="h-4 w-4" aria-hidden="true" />
                     </span>
                 ) : null}

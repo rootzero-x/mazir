@@ -20,10 +20,30 @@ createRoot(document.getElementById('root')!).render(
               position="top-right"
               toastOptions={{
                 style: {
-                  background: '#1e293b',
+                  background: 'rgba(15, 23, 42, 0.6)',
+                  backdropFilter: 'blur(16px)',
+                  WebkitBackdropFilter: 'blur(16px)',
                   color: '#fff',
-                  border: '1px solid #334155',
+                  border: '1px solid rgba(255, 255, 255, 0.05)',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+                  borderRadius: '1rem',
+                  padding: '16px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  letterSpacing: '0.01em',
                 },
+                success: {
+                  iconTheme: {
+                    primary: '#8b5cf6',
+                    secondary: '#fff',
+                  },
+                },
+                error: {
+                  iconTheme: {
+                    primary: '#ef4444',
+                    secondary: '#fff',
+                  }
+                }
               }}
             />
           </NotificationProvider>

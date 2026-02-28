@@ -187,21 +187,21 @@ const NotificationItem = ({ notification, onClick }: { notification: any, onClic
             onClick={onClick}
             className={cn(
                 "group relative flex gap-4 p-4 rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden",
-                "hover:scale-[1.01] hover:shadow-lg",
+                "hover:scale-[1.01] hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)]",
                 isUnread
-                    ? "bg-slate-800/60 border-blue-500/30 shadow-md shadow-blue-500/5 backdrop-blur-md"
-                    : "bg-slate-900/40 border-slate-800/60 hover:bg-slate-800/60 backdrop-blur-sm"
+                    ? "bg-slate-800/40 border-violet-500/30 shadow-[0_0_15px_rgba(139,92,246,0.15)] backdrop-blur-md"
+                    : "bg-slate-900/40 border-white/5 hover:bg-slate-800/40 hover:border-white/10 backdrop-blur-sm"
             )}
         >
             {/* Unread Indicator */}
             {isUnread && (
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 to-violet-500" />
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 to-violet-500 shadow-[0_0_10px_rgba(139,92,246,0.5)]" />
             )}
 
             {/* Icon / Avatar */}
             <div className="relative shrink-0">
                 <div className={cn(
-                    "h-12 w-12 rounded-2xl flex items-center justify-center ring-2 ring-slate-900/50 shadow-inner",
+                    "h-12 w-12 rounded-[1.2rem] flex items-center justify-center ring-2 ring-slate-900/50 shadow-inner",
                     style.bg,
                     style.color
                 )}>
@@ -209,10 +209,10 @@ const NotificationItem = ({ notification, onClick }: { notification: any, onClic
                         <img
                             src={actor.avatarUrl}
                             alt={actor.username}
-                            className="h-full w-full rounded-2xl object-cover"
+                            className="h-full w-full rounded-[1.2rem] object-cover"
                         />
                     ) : (
-                        <style.icon className="h-6 w-6" />
+                        <style.icon className="h-6 w-6 drop-shadow-[0_0_8px_currentColor]" />
                     )}
                 </div>
                 {/* Mini Type Icon Badge */}
@@ -229,7 +229,7 @@ const NotificationItem = ({ notification, onClick }: { notification: any, onClic
             {/* Content */}
             <div className="flex-1 min-w-0 flex flex-col justify-center">
                 <div className="flex justify-between items-start gap-2">
-                    <p className={cn("text-sm font-medium leading-normal", isUnread ? "text-white" : "text-slate-300")}>
+                    <p className={cn("text-[15px] font-medium leading-normal drop-shadow-sm", isUnread ? "text-white" : "text-slate-200")}>
                         {message}
                     </p>
                     <span className="text-[10px] sm:text-xs text-slate-500 whitespace-nowrap font-medium tracking-wide">
@@ -238,37 +238,37 @@ const NotificationItem = ({ notification, onClick }: { notification: any, onClic
                 </div>
 
                 {subMessage && (
-                    <p className="text-sm text-blue-400/90 mt-0.5 font-medium line-clamp-1">
+                    <p className="text-[14px] text-blue-400/90 mt-0.5 font-medium line-clamp-1">
                         {subMessage}
                     </p>
                 )}
 
                 {postSnippet && (
-                    <div className="mt-2 p-2.5 rounded-lg bg-slate-950/30 border border-slate-800/50 group-hover:border-slate-700/50 transition-colors">
-                        <p className="text-xs text-slate-400 line-clamp-2 italic">
+                    <div className="mt-3 p-3 rounded-xl bg-slate-950/50 border border-white/5 group-hover:border-white/10 transition-colors shadow-inner">
+                        <p className="text-[13px] text-slate-400 line-clamp-2 font-light italic">
                             "{postSnippet}"
                         </p>
                     </div>
                 )}
 
                 {notification.type === "AI_REPORT" && (
-                    <div className="mt-2 flex flex-wrap gap-2">
+                    <div className="mt-3 flex flex-wrap gap-2">
                         {(() => {
                             const s = status?.toLowerCase();
 
                             if (s === 'published') return (
-                                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-sm shadow-emerald-500/5">
-                                    <Globe className="w-3 h-3" /> Approved
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+                                    <Globe className="w-3.5 h-3.5" /> Approved
                                 </span>
                             );
                             if (s === 'hidden') return (
-                                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20 shadow-sm shadow-rose-500/5">
-                                    <EyeOff className="w-3 h-3" /> Rejected
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/30 shadow-[0_0_10px_rgba(244,63,94,0.2)]">
+                                    <EyeOff className="w-3.5 h-3.5" /> Rejected
                                 </span>
                             );
                             if (s === 'review') return (
-                                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-sm shadow-amber-500/5">
-                                    <Search className="w-3 h-3" /> In Review
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/30 shadow-[0_0_10px_rgba(245,158,11,0.2)]">
+                                    <Search className="w-3.5 h-3.5" /> In Review
                                 </span>
                             );
                             return null;
@@ -279,7 +279,7 @@ const NotificationItem = ({ notification, onClick }: { notification: any, onClic
 
             {/* Arrow */}
             <div className="self-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                <ArrowRight className="h-4 w-4 text-slate-500" />
+                <ArrowRight className="h-5 w-5 text-violet-400 drop-shadow-[0_0_8px_rgba(139,92,246,0.5)]" />
             </div>
         </div>
     );
@@ -380,36 +380,42 @@ export default function Notifications() {
 
     if (loading) {
         return (
-            <div className="min-h-screen pt-20 pb-24 px-4 md:px-8 max-w-3xl mx-auto space-y-6">
+            <div className="min-h-screen pt-20 pb-24 px-4 md:px-8 max-w-4xl mx-auto space-y-6 relative bg-transparent">
+                <div className="fixed top-0 left-0 w-[500px] h-[500px] rounded-full bg-violet-600/5 blur-[120px] pointer-events-none z-0" />
+
                 {/* Skeleton Header */}
-                <div className="h-10 w-48 bg-slate-800/50 rounded-lg animate-pulse" />
+                <div className="h-24 w-full bg-slate-900/40 backdrop-blur-md border border-white/5 rounded-[2rem] animate-pulse" />
+
                 {/* Skeleton Items */}
-                {[1, 2, 3, 4].map(i => (
-                    <div key={i} className="h-28 rounded-2xl bg-slate-900/50 border border-slate-800 animate-pulse" />
-                ))}
+                <div className="space-y-4">
+                    {[1, 2, 3, 4].map(i => (
+                        <div key={i} className="h-28 rounded-2xl bg-slate-900/40 backdrop-blur-md border border-white/5 animate-pulse" />
+                    ))}
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen w-full relative overflow-x-hidden">
-            {/* Background Decoration */}
-            <div className="fixed top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-900/10 via-slate-900/5 to-transparent pointer-events-none" />
+        <div className="min-h-screen w-full relative overflow-x-hidden bg-transparent">
+            {/* Ambient Glows */}
+            <div className="fixed top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-violet-600/10 blur-[150px] pointer-events-none z-0" />
+            <div className="fixed bottom-[-10%] left-[-5%] w-[600px] h-[600px] rounded-full bg-sky-500/10 blur-[150px] pointer-events-none z-0" />
 
-            <div className="relative pb-24 md:pt-10 max-w-4xl mx-auto">
-                {/* Header */}
-                <div className="sticky top-0 z-30 bg-slate-950/80 backdrop-blur-md pt-[calc(env(safe-area-inset-top,0px)+1.5rem)] pb-4 px-4 -mx-4 mb-8">
+            <div className="relative pb-24 md:pt-[calc(env(safe-area-inset-top,0px)+1rem)] max-w-4xl mx-auto z-10 px-4 md:px-0">
+                {/* Glass Header */}
+                <div className="sticky top-[calc(env(safe-area-inset-top,0px)+1rem)] z-30 bg-slate-900/40 backdrop-blur-xl border border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.3)] rounded-3xl p-5 mb-8">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
-                            <h1 className="text-3xl font-bold text-white tracking-tight flex items-center gap-3">
+                            <h1 className="text-3xl font-bold text-white tracking-tight flex items-center gap-3 drop-shadow-sm">
                                 Notifications
                                 {unreadCount > 0 && (
-                                    <span className="inline-flex items-center justify-center h-6 min-w-[1.5rem] px-2 text-xs font-bold text-white bg-red-500 rounded-full animate-bounce shadow-lg shadow-red-500/30">
+                                    <span className="inline-flex items-center justify-center h-7 min-w-[1.75rem] px-2.5 text-[13px] font-bold text-white bg-violet-600 rounded-full shadow-[0_0_15px_rgba(139,92,246,0.6)]">
                                         {unreadCount}
                                     </span>
                                 )}
                             </h1>
-                            <p className="text-slate-400 mt-1">Stay updated with your community interactions</p>
+                            <p className="text-[15px] font-light text-slate-300 mt-1">Stay updated with your community interactions</p>
                         </div>
 
                         <Button
@@ -418,29 +424,29 @@ export default function Notifications() {
                             onClick={markAllAsRead}
                             disabled={unreadCount === 0}
                             className={cn(
-                                "group border-slate-700 bg-slate-900/50 backdrop-blur text-slate-300 hover:text-white hover:border-blue-500/50 hover:bg-blue-500/10 transition-all",
+                                "group bg-slate-950/50 border-white/10 text-slate-300 hover:text-white hover:border-violet-500/50 hover:bg-violet-600/20 transition-all rounded-xl h-11 px-5 shadow-inner",
                                 unreadCount === 0 && "opacity-50 cursor-not-allowed"
                             )}
                         >
-                            <CheckCheck className="h-4 w-4 mr-2 group-hover:text-blue-400 transition-colors" />
-                            Mark all as read
+                            <CheckCheck className="h-4 w-4 mr-2 text-violet-400 group-hover:drop-shadow-[0_0_8px_rgba(139,92,246,0.6)] transition-all" />
+                            <span className="font-medium tracking-wide">Mark all as read</span>
                         </Button>
                     </div>
                 </div>
 
                 {/* Notifications List */}
-                <div className="space-y-8">
+                <div className="space-y-10">
                     {groupedNotifications.length > 0 ? (
                         groupedNotifications.map((group, groupIndex) => (
-                            <div key={group.title} className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-backwards" style={{ animationDelay: `${groupIndex * 100}ms` }}>
-                                <div className="flex items-center gap-3 px-1">
+                            <div key={group.title} className="space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-backwards" style={{ animationDelay: `${groupIndex * 100}ms` }}>
+                                <div className="flex items-center gap-4 px-2">
                                     <h2 className={cn(
-                                        "text-sm font-bold uppercase tracking-wider",
-                                        group.title === "New" ? "text-blue-400" : "text-slate-500"
+                                        "text-sm font-bold uppercase tracking-widest",
+                                        group.title === "New" ? "text-violet-400 drop-shadow-[0_0_8px_rgba(139,92,246,0.5)]" : "text-slate-400"
                                     )}>
                                         {group.title}
                                     </h2>
-                                    <div className="h-px flex-1 bg-slate-800/50" />
+                                    <div className="h-[1px] flex-1 bg-gradient-to-r from-white/10 to-transparent" />
                                 </div>
                                 <div className="space-y-3">
                                     {group.items.map((notification) => (
@@ -454,20 +460,22 @@ export default function Notifications() {
                             </div>
                         ))
                     ) : (
-                        <div className="flex flex-col items-center justify-center py-24 text-center space-y-4">
-                            <div className="h-20 w-20 rounded-full bg-slate-900/50 border border-slate-800 flex items-center justify-center">
-                                <Bell className="h-10 w-10 text-slate-600" />
+                        <div className="flex flex-col items-center justify-center py-24 text-center space-y-6 bg-slate-900/40 backdrop-blur-xl rounded-[2rem] border border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
+                            <div className="relative">
+                                <div className="absolute inset-0 bg-violet-500/20 blur-xl rounded-full" />
+                                <div className="h-24 w-24 rounded-full bg-slate-900/80 border border-white/10 flex items-center justify-center relative shadow-inner">
+                                    <Bell className="h-10 w-10 text-violet-400 drop-shadow-[0_0_15px_rgba(139,92,246,0.5)]" />
+                                </div>
                             </div>
-                            <div className="space-y-1">
-                                <h3 className="text-xl font-semibold text-white">All caught up!</h3>
-                                <p className="text-slate-500 max-w-xs mx-auto">
+                            <div className="space-y-2">
+                                <h3 className="text-2xl font-bold text-white drop-shadow-sm">All caught up!</h3>
+                                <p className="text-[15px] font-light text-slate-300 max-w-sm mx-auto leading-relaxed">
                                     You have no new notifications. Interact with the community to get updates.
                                 </p>
                             </div>
                             <Button
-                                variant="outline"
-                                className="mt-4 border-slate-700 bg-slate-900/50"
                                 onClick={() => navigate('/feed')}
+                                className="mt-4 bg-violet-600 hover:bg-violet-500 text-white shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.5)] border-0 rounded-xl px-8 h-12 font-bold transition-all transform hover:-translate-y-0.5"
                             >
                                 Browse Feed
                             </Button>

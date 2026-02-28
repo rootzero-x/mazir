@@ -18,15 +18,15 @@ export default function CodeBlock({ code, language = "javacript" }: CodeBlockPro
     };
 
     return (
-        <div className="group relative my-4 rounded-xl overflow-hidden border border-slate-800 bg-slate-900/50 shadow-2xl">
+        <div className="group relative my-6 rounded-2xl overflow-hidden border border-white/5 bg-slate-950/60 shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl">
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-2 bg-slate-900 border-b border-slate-800">
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+            <div className="flex items-center justify-between px-5 py-2.5 bg-slate-900/60 border-b border-white/5 backdrop-blur-md">
+                <span className="text-[11px] font-bold text-violet-400/80 uppercase tracking-wider drop-shadow-[0_0_8px_rgba(139,92,246,0.3)]">
                     {language || "code"}
                 </span>
                 <button
                     onClick={handleCopy}
-                    className="flex items-center gap-1.5 px-2 py-1 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 transition-all active:scale-95"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-all active:scale-95 shadow-sm border border-transparent hover:border-white/5"
                 >
                     {copied ? (
                         <>

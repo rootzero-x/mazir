@@ -45,11 +45,11 @@ const AVAILABLE_ROOMS = [
 ];
 
 const COLOR_CLASSES = {
-    blue: "border-blue-600 bg-blue-600/10 ring-blue-600/20",
-    purple: "border-purple-600 bg-purple-600/10 ring-purple-600/20",
-    green: "border-green-600 bg-green-600/10 ring-green-600/20",
-    pink: "border-pink-600 bg-pink-600/10 ring-pink-600/20",
-    orange: "border-orange-600 bg-orange-600/10 ring-orange-600/20",
+    blue: "border-sky-500 bg-sky-500/10 ring-2 ring-sky-500/30 shadow-[0_0_15px_rgba(14,165,233,0.2)]",
+    purple: "border-violet-500 bg-violet-500/10 ring-2 ring-violet-500/30 shadow-[0_0_15px_rgba(139,92,246,0.2)]",
+    green: "border-emerald-500 bg-emerald-500/10 ring-2 ring-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.2)]",
+    pink: "border-pink-500 bg-pink-500/10 ring-2 ring-pink-500/30 shadow-[0_0_15px_rgba(236,72,153,0.2)]",
+    orange: "border-orange-500 bg-orange-500/10 ring-2 ring-orange-500/30 shadow-[0_0_15px_rgba(249,115,22,0.2)]",
 };
 
 export default function Rooms() {
@@ -104,15 +104,19 @@ export default function Rooms() {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-4">
-            <div className="w-full max-w-3xl space-y-8 rounded-2xl bg-slate-900/50 p-8 border border-slate-800 backdrop-blur-xl">
+        <div className="flex min-h-screen items-center justify-center bg-slate-950 p-4 relative overflow-hidden">
+            {/* Ambient Glows */}
+            <div className="fixed top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-violet-600/10 blur-[150px] pointer-events-none z-0" />
+            <div className="fixed bottom-[-10%] left-[-5%] w-[600px] h-[600px] rounded-full bg-sky-500/10 blur-[150px] pointer-events-none z-0" />
+
+            <div className="w-full max-w-3xl space-y-8 rounded-[2rem] bg-slate-900/40 p-8 border border-white/5 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
                 <OnboardingStepper currentStep={3} />
 
                 <div className="space-y-2 text-center">
-                    <h1 className="text-3xl font-bold tracking-tight text-white">
+                    <h1 className="text-3xl font-bold tracking-tight text-white drop-shadow-sm">
                         Join Your Communities
                     </h1>
-                    <p className="text-slate-400">
+                    <p className="text-[15px] font-light text-slate-400">
                         Select at least 3 rooms to join and start engaging with the community.
                     </p>
                 </div>
@@ -137,9 +141,9 @@ export default function Rooms() {
                                 <button
                                     key={room.id}
                                     onClick={() => toggleRoom(room.id)}
-                                    className={`flex flex-col items-start gap-3 rounded-xl border-2 p-5 text-left transition-all ${isSelected
-                                        ? `${colorClass} ring-2`
-                                        : "border-slate-700 bg-slate-950/50 hover:border-slate-600 hover:bg-slate-900/50"
+                                    className={`flex flex-col items-start gap-4 rounded-xl border p-5 text-left transition-all ${isSelected
+                                        ? `${colorClass}`
+                                        : "border-white/5 bg-slate-950/50 hover:border-white/10 hover:bg-slate-900/50 shadow-inner"
                                         }`}
                                 >
                                     <div className="flex w-full items-center justify-between">
@@ -160,11 +164,11 @@ export default function Rooms() {
                                             </svg>
                                         )}
                                     </div>
-                                    <div className="space-y-1">
-                                        <h3 className="font-semibold text-white">
+                                    <div className="space-y-1.5">
+                                        <h3 className="font-semibold text-slate-200">
                                             {room.name}
                                         </h3>
-                                        <p className="text-xs text-slate-400">
+                                        <p className="text-sm text-slate-400 font-light">
                                             {room.description}
                                         </p>
                                     </div>
@@ -176,7 +180,7 @@ export default function Rooms() {
                     <Button
                         onClick={handleFinish}
                         disabled={loading || selectedRooms.length < 3}
-                        className="w-full h-12 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold"
+                        className="w-full h-12 bg-violet-600 hover:bg-violet-500 text-white font-bold shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.5)] border-0 rounded-xl transition-all transform hover:-translate-y-0.5"
                     >
                         {loading ? "Finishing..." : "Finish & Enter Community 🚀"}
                     </Button>

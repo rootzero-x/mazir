@@ -108,15 +108,19 @@ export default function Setup() {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-4">
-            <div className="w-full max-w-2xl space-y-8 rounded-2xl bg-slate-900/50 p-8 border border-slate-800 backdrop-blur-xl">
+        <div className="flex min-h-screen items-center justify-center bg-slate-950 p-4 relative overflow-hidden">
+            {/* Ambient Glows */}
+            <div className="fixed top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-violet-600/10 blur-[150px] pointer-events-none z-0" />
+            <div className="fixed bottom-[-10%] left-[-5%] w-[600px] h-[600px] rounded-full bg-sky-500/10 blur-[150px] pointer-events-none z-0" />
+
+            <div className="w-full max-w-2xl space-y-8 rounded-[2rem] bg-slate-900/40 p-8 border border-white/5 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
                 <OnboardingStepper currentStep={1} />
 
                 <div className="space-y-2 text-center">
-                    <h1 className="text-3xl font-bold tracking-tight text-white">
+                    <h1 className="text-3xl font-bold tracking-tight text-white drop-shadow-sm">
                         Let's Set Up Your Profile
                     </h1>
-                    <p className="text-slate-400">
+                    <p className="text-[15px] font-light text-slate-400">
                         Tell us about your goals and skills so we can personalize your experience.
                     </p>
                 </div>
@@ -124,14 +128,14 @@ export default function Setup() {
                 <div className="space-y-6">
                     {/* Display Name Section */}
                     <div className="space-y-3">
-                        <label className="text-sm font-semibold text-slate-200">
-                            Display Name <span className="text-slate-500">(Optional)</span>
+                        <label className="text-sm font-medium text-slate-200">
+                            Display Name <span className="text-slate-500 font-normal">(Optional)</span>
                         </label>
                         <Input
                             value={displayName}
                             onChange={(e) => setDisplayName(e.target.value.slice(0, 50))}
                             placeholder="e.g., Root Zero"
-                            className="bg-slate-950 border-slate-800 focus-visible:ring-blue-600 text-white"
+                            className="bg-slate-950/50 border-white/5 text-white placeholder:text-slate-600 focus-visible:ring-1 focus-visible:ring-violet-500/50 focus:border-violet-500/50 h-12 rounded-xl transition-all"
                             maxLength={50}
                         />
                         <p className="text-xs text-slate-500">
@@ -146,21 +150,21 @@ export default function Setup() {
 
                     {/* Goals Section */}
                     <div className="space-y-3">
-                        <label className="text-sm font-semibold text-slate-200">
-                            What are your goals? <span className="text-slate-500">(Select 1-3)</span>
+                        <label className="text-sm font-medium text-slate-200">
+                            What are your goals? <span className="text-slate-500 font-normal">(Select 1-3)</span>
                         </label>
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                             {GOALS_OPTIONS.map((goal) => (
                                 <button
                                     key={goal.id}
                                     onClick={() => toggleGoal(goal.id)}
-                                    className={`flex flex-col items-center gap-2 rounded-lg border-2 p-4 transition-all ${selectedGoals.includes(goal.id)
-                                        ? "border-blue-600 bg-blue-600/10 text-white"
-                                        : "border-slate-700 bg-slate-950/50 text-slate-400 hover:border-slate-600 hover:bg-slate-900/50"
+                                    className={`flex flex-col items-center gap-2 rounded-[1rem] border-2 p-4 transition-all ${selectedGoals.includes(goal.id)
+                                        ? "border-violet-500 bg-violet-600/10 text-white shadow-[0_0_15px_rgba(139,92,246,0.2)]"
+                                        : "border-white/5 bg-slate-950/50 text-slate-400 hover:border-white/10 hover:bg-slate-900/50 shadow-inner"
                                         }`}
                                 >
-                                    <span className="text-2xl">{goal.icon}</span>
-                                    <span className="text-xs font-medium text-center">{goal.label}</span>
+                                    <span className="text-3xl drop-shadow-sm group-hover:drop-shadow-md transition-all">{goal.icon}</span>
+                                    <span className="text-[13px] font-medium text-center">{goal.label}</span>
                                 </button>
                             ))}
                         </div>
@@ -173,17 +177,17 @@ export default function Setup() {
 
                     {/* Skills Section */}
                     <div className="space-y-3">
-                        <label className="text-sm font-semibold text-slate-200">
-                            What are your skills? <span className="text-slate-500">(Select 1-5)</span>
+                        <label className="text-sm font-medium text-slate-200">
+                            What are your skills? <span className="text-slate-500 font-normal">(Select 1-5)</span>
                         </label>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                             {SKILLS_OPTIONS.map((skill) => (
                                 <button
                                     key={skill.id}
                                     onClick={() => toggleSkill(skill.id)}
-                                    className={`rounded-lg border-2 px-4 py-2 text-sm font-medium transition-all ${selectedSkills.includes(skill.id)
-                                        ? "border-blue-600 bg-blue-600/10 text-white"
-                                        : "border-slate-700 bg-slate-950/50 text-slate-400 hover:border-slate-600 hover:bg-slate-900/50"
+                                    className={`rounded-xl border-2 px-4 py-2 text-sm font-medium transition-all ${selectedSkills.includes(skill.id)
+                                        ? "border-violet-500 bg-violet-600/10 text-white shadow-[0_0_15px_rgba(139,92,246,0.2)]"
+                                        : "border-white/5 bg-slate-950/50 text-slate-400 hover:border-white/10 hover:bg-slate-900/50 shadow-inner"
                                         }`}
                                 >
                                     {skill.label}
@@ -199,14 +203,14 @@ export default function Setup() {
 
                     {/* Bio Section */}
                     <div className="space-y-3">
-                        <label className="text-sm font-semibold text-slate-200">
-                            Bio <span className="text-slate-500">(Optional)</span>
+                        <label className="text-sm font-medium text-slate-200">
+                            Bio <span className="text-slate-500 font-normal">(Optional)</span>
                         </label>
                         <Textarea
                             value={bio}
                             onChange={(e) => setBio(e.target.value)}
                             placeholder="Tell us about yourself..."
-                            className="min-h-[100px] bg-slate-950 border-slate-800 focus-visible:ring-blue-600 text-white resize-none"
+                            className="min-h-[100px] bg-slate-950/50 border-white/5 text-white placeholder:text-slate-600 focus-visible:ring-1 focus-visible:ring-violet-500/50 focus:border-violet-500/50 rounded-xl transition-all resize-none shadow-inner"
                             maxLength={500}
                         />
                         <p className="text-xs text-slate-500 text-right">{bio.length}/500</p>
@@ -220,7 +224,7 @@ export default function Setup() {
                     <Button
                         onClick={handleContinue}
                         disabled={loading || selectedGoals.length === 0 || selectedSkills.length === 0}
-                        className="w-full h-12 bg-blue-600 hover:bg-blue-500 text-white font-semibold"
+                        className="w-full h-12 bg-violet-600 hover:bg-violet-500 text-white font-bold shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.5)] border-0 rounded-xl transition-all transform hover:-translate-y-0.5"
                     >
                         {loading ? "Saving..." : "Continue"}
                     </Button>

@@ -29,10 +29,19 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
     const getTypeColor = (type: string) => {
         switch (type.toUpperCase()) {
-            case "SELL": return "border-emerald-500/30 bg-emerald-500/10 text-emerald-300";
-            case "COLLAB": return "border-blue-500/30 bg-blue-500/10 text-blue-300";
-            case "OPEN_SOURCE": return "border-violet-500/30 bg-violet-500/10 text-violet-300";
-            default: return "border-slate-700 bg-slate-800 text-slate-300";
+            case "SELL": return "border-emerald-500/50 bg-emerald-500/20 text-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.2)]";
+            case "COLLAB": return "border-blue-500/50 bg-blue-500/20 text-blue-300 shadow-[0_0_15px_rgba(59,130,246,0.2)]";
+            case "OPEN_SOURCE": return "border-violet-500/50 bg-violet-500/20 text-violet-300 shadow-[0_0_15px_rgba(139,92,246,0.2)]";
+            default: return "border-slate-600/50 bg-slate-800/50 text-slate-300 shadow-[0_0_15px_rgba(148,163,184,0.1)]";
+        }
+    };
+
+    const getHoverShadow = (type: string) => {
+        switch (type.toUpperCase()) {
+            case "SELL": return "hover:shadow-[0_0_30px_rgba(16,185,129,0.15)] hover:border-emerald-500/30";
+            case "COLLAB": return "hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] hover:border-blue-500/30";
+            case "OPEN_SOURCE": return "hover:shadow-[0_0_30px_rgba(139,92,246,0.15)] hover:border-violet-500/30";
+            default: return "hover:shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:border-white/10";
         }
     };
 
@@ -41,18 +50,22 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             to={`/projects/${project.id || project.slug}`}
             className="group block h-full"
         >
-            <article className="bg-slate-900/40 backdrop-blur-sm border border-slate-800/60 rounded-3xl overflow-hidden hover:border-slate-700 hover:bg-slate-900/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-900/10 h-full flex flex-col">
+            <article className={cn(
+                "bg-slate-900/40 backdrop-blur-md border border-white/5 rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-1 h-full flex flex-col w-full relative isolation-auto",
+                getHoverShadow(project.type)
+            )}>
                 {/* Project Image/Gradient */}
-                <div className="h-48 w-full bg-slate-950 relative overflow-hidden">
+                <div className="h-48 w-full bg-slate-950 relative overflow-hidden shrink-0 border-b border-white/5 shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
                     {project.images && project.images.length > 0 ? (
                         <img
                             src={project.images[0]}
                             alt={project.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
                         />
                     ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-8">
-                            <div className="text-center opacity-30 group-hover:opacity-50 transition-opacity">
+                        <div className="w-full h-full bg-slate-900 flex items-center justify-center p-8 relative">
+                            <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/20 to-violet-900/20 pointer-events-none" />
+                            <div className="text-center opacity-30 group-hover:opacity-60 transition-opacity z-10 drop-shadow-md">
                                 <Code2 className="h-16 w-16 mx-auto mb-2" />
                             </div>
                         </div>
@@ -60,7 +73,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
                     {/* Type Badge */}
                     <div className={cn(
-                        "absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold border backdrop-blur-md flex items-center gap-1.5 shadow-lg",
+                        "absolute top-4 left-4 px-3 py-1 rounded-full text-[12px] font-bold border flex items-center gap-1.5 transition-all",
                         getTypeColor(project.type)
                     )}>
                         {getTypeIcon(project.type)}
@@ -68,31 +81,31 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                     </div>
                 </div>
 
-                <div className="p-6 flex flex-col flex-1">
+                <div className="p-6 flex flex-col flex-1 bg-gradient-to-b from-transparent to-slate-900/20">
                     <div className="flex justify-between items-start gap-4 mb-3">
-                        <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors line-clamp-1">
+                        <h3 className="text-[20px] font-bold text-white group-hover:text-blue-400 transition-colors line-clamp-1 tracking-tight drop-shadow-sm">
                             {project.title}
                         </h3>
                         {project.price && project.type === "SELL" && (
-                            <span className="shrink-0 font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded-lg border border-emerald-500/20">
+                            <span className="shrink-0 font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded-lg border border-emerald-500/30 shadow-[0_0_10px_rgba(16,185,129,0.15)] text-sm">
                                 ${project.price}
                             </span>
                         )}
                     </div>
 
-                    <p className="text-slate-400 text-sm line-clamp-2 mb-4 leading-relaxed">
+                    <p className="text-slate-400 text-[14px] line-clamp-2 mb-5 leading-relaxed font-light">
                         {project.pitch}
                     </p>
 
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2 mb-6">
                         {project.tags.slice(0, 3).map(tag => (
-                            <span key={tag} className="text-xs px-2 py-1 rounded-md bg-slate-950 border border-slate-800 text-slate-500 font-mono">
-                                #{tag}
+                            <span key={tag} className="text-[12px] px-2.5 py-1.5 rounded-lg bg-slate-900 border border-white/5 text-slate-300 font-mono transition-colors group-hover:border-violet-500/30 group-hover:text-violet-200">
+                                {tag}
                             </span>
                         ))}
                         {project.tags.length > 3 && (
-                            <span className="text-xs px-2 py-1 rounded-md bg-slate-950 border border-slate-800 text-slate-500 font-mono">
+                            <span className="text-[12px] px-2.5 py-1.5 rounded-lg bg-slate-900 border border-white/5 text-slate-400 font-mono">
                                 +{project.tags.length - 3}
                             </span>
                         )}

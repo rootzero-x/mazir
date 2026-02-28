@@ -1,2 +1,0 @@
-﻿src/pages/onboarding/Rooms.tsx(78,19): error TS6133: 'data' is declared but its value is never read.
-src/pages/rooms/components/RoomInfoDrawer.tsx(1,31): error TS6133: 'Calendar' is declared but its value is never read.

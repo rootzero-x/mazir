@@ -27,7 +27,7 @@ export default function MarkdownContent({ content, className }: MarkdownContentP
                         }
 
                         return (
-                            <code className={cn("bg-slate-800 px-1.5 py-0.5 rounded text-blue-400 font-mono text-sm", className)} {...props}>
+                            <code className={cn("bg-slate-950/60 px-2 py-0.5 rounded-md text-violet-300 border border-white/5 font-mono text-[13px] shadow-inner", className)} {...props}>
                                 {children}
                             </code>
                         );

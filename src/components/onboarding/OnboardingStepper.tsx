@@ -11,11 +11,10 @@ const steps = [
 export default function OnboardingStepper({ currentStep }: OnboardingStepperProps) {
     return (
         <div className="w-full space-y-4">
-            {/* Progress Bar */}
             <div className="relative">
-                <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                <div className="h-2 w-full bg-slate-800/50 rounded-full overflow-hidden shadow-inner">
                     <div
-                        className="h-full bg-gradient-to-r from-blue-600 to-blue-400 transition-all duration-500 ease-out"
+                        className="h-full bg-gradient-to-r from-violet-600 to-sky-500 transition-all duration-500 ease-out shadow-[0_0_10px_rgba(139,92,246,0.6)]"
                         style={{ width: `${(currentStep / 3) * 100}%` }}
                     />
                 </div>
@@ -29,15 +28,15 @@ export default function OnboardingStepper({ currentStep }: OnboardingStepperProp
                         className="flex flex-col items-center space-y-2"
                     >
                         <div
-                            className={`flex h-10 w-10 items-center justify-center rounded-full border-2 font-semibold transition-all ${step.number < currentStep
-                                    ? "bg-blue-600 border-blue-600 text-white"
-                                    : step.number === currentStep
-                                        ? "bg-blue-600 border-blue-600 text-white ring-4 ring-blue-600/20"
-                                        : "bg-slate-900 border-slate-700 text-slate-500"
+                            className={`flex h-10 w-10 items-center justify-center rounded-full border-2 font-semibold transition-all shadow-inner ${step.number < currentStep
+                                ? "bg-violet-600 border-violet-500 text-white shadow-[0_0_15px_rgba(139,92,246,0.6)]"
+                                : step.number === currentStep
+                                    ? "bg-violet-600 border-violet-500 text-white ring-4 ring-violet-500/30 shadow-[0_0_15px_rgba(139,92,246,0.6)]"
+                                    : "bg-slate-900 border-white/10 text-slate-500 backdrop-blur-md"
                                 }`}
                         >
                             {step.number < currentStep ? (
-                                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="h-5 w-5 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                 </svg>
                             ) : (
@@ -56,7 +55,7 @@ export default function OnboardingStepper({ currentStep }: OnboardingStepperProp
 
             {/* Current Step Title (Mobile) */}
             <div className="text-center sm:hidden">
-                <span className="text-sm font-medium text-blue-400">
+                <span className="text-sm font-medium text-violet-400 drop-shadow-[0_0_5px_rgba(139,92,246,0.5)]">
                     Step {currentStep}/3: {steps[currentStep - 1].title}
                 </span>
             </div>
